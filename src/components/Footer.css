@@ -1,0 +1,218 @@
+/* ─── CTA Strip ─── */
+.footer-cta-strip {
+  background: var(--gradient-orange);
+  padding: 40px 0;
+}
+
+.footer-cta-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.footer-cta-text h3 {
+  font-size: 22px;
+  font-weight: 900;
+  color: white;
+  margin-bottom: 6px;
+  letter-spacing: -0.3px;
+}
+
+.footer-cta-text p {
+  font-size: 16px;
+  color: rgba(255,255,255,0.8);
+  font-weight: 500;
+}
+
+.footer-cta-btns {
+  display: flex;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.footer-cta-btn-primary {
+  background: white;
+  color: var(--accent-orange);
+  padding: 13px 30px;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 16px;
+  transition: var(--transition);
+  display: inline-block;
+}
+
+.footer-cta-btn-primary:hover {
+  background: var(--primary-blue);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.footer-cta-btn-ghost {
+  background: transparent;
+  color: white;
+  padding: 13px 30px;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 14px;
+  border: 2px solid rgba(255,255,255,0.5);
+  transition: var(--transition);
+  display: inline-block;
+}
+
+.footer-cta-btn-ghost:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: white;
+  transform: translateY(-2px);
+}
+
+/* ─── Main Footer ─── */
+.footer-main {
+  background: #0d0e2c;
+  padding: 40px 0 50px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.3fr 0.8fr 1.3fr;
+  gap: 40px;
+}
+
+@media (max-width: 1000px) {
+  .footer-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-brand-col { grid-column: 1 / -1; }
+}
+
+@media (max-width: 600px) {
+  .footer-grid { grid-template-columns: 1fr; }
+}
+
+/* Brand col */
+.footer-brand-col {}
+
+.footer-logo {
+  height: 40px;
+  object-fit: contain;
+  margin-bottom: 18px;
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+}
+
+.footer-brand-desc {
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.75;
+  font-weight: 500;
+  margin-bottom: 22px;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 10px;
+}
+
+.footer-social {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  transition: var(--transition);
+}
+
+.footer-social:hover {
+  background: var(--accent-orange);
+  border-color: var(--accent-orange);
+  color: white;
+  transform: translateY(-3px);
+}
+
+/* Columns */
+.footer-col-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 12px;
+  letter-spacing: 0.3px;
+}
+
+.footer-underline {
+  width: 36px;
+  height: 3px;
+  background: #10b981;
+  border-radius: 2px;
+  margin-bottom: 20px;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links a,
+.footer-links li {
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.5);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  transition: var(--transition);
+  line-height: 1.5;
+}
+
+.footer-links a:hover {
+  color: rgba(255,255,255,0.9);
+  padding-left: 6px;
+}
+
+.footer-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.footer-addr {
+  align-items: flex-start !important;
+  margin-top: 2px;
+}
+
+/* ─── Bottom Bar ─── */
+.footer-bottom {
+  background: #08091e;
+  padding: 18px 0;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.footer-bottom-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.footer-bottom p {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.35);
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .footer-cta-inner { flex-direction: column; text-align: center; }
+  .footer-cta-btns { flex-direction: column; width: 100%; }
+  .footer-cta-btn-primary, .footer-cta-btn-ghost { width: 100%; text-align: center; }
+  .footer-main { padding: 50px 0 30px; }
+  .footer-bottom-inner { flex-direction: column; text-align: center; }
+}

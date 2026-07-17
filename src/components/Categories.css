@@ -1,0 +1,258 @@
+.categories-redesign {
+  padding: 30px 0;
+  background-color: #ffffff;
+}
+
+.cat-flex-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+/* Left Column */
+.cat-left-col {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Categories Grid */
+.cat-grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+/* Category Card */
+.cat-redesign-card {
+  min-height: 150px;
+  padding: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+
+  overflow: hidden;
+  text-decoration: none;
+  background: #ffffff;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.cat-redesign-card:hover {
+  transform: translateY(-4px);
+  border-color: #f26522;
+  box-shadow: 0 10px 22px rgba(242, 101, 34, 0.12);
+}
+
+/* Left side text */
+.cat-card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.cat-redesign-title {
+  margin: 0 0 12px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #111827;
+}
+
+.cat-redesign-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+/* Right side image box */
+.cat-card-image-box {
+  width: 105px;
+  height: 110px;
+  flex: 0 0 105px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+/* Category image */
+.cat-card-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  object-position: center;
+
+  transition: transform 0.3s ease;
+}
+
+.cat-redesign-card:hover .cat-card-image {
+  transform: scale(1.07);
+}
+
+/* Right Column Form */
+.cat-right-col {
+  width: 420px;
+  flex-shrink: 0;
+}
+
+.cat-register-form {
+  padding: 20px;
+  background: #ffffff;
+  border: 2px solid #0f0236;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.form-header {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.form-header h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 800;
+  color: #111827;
+}
+
+.form-header p {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 16px;
+
+  font-size: 14px;
+  background: #ffffff;
+  border: 1.5px solid #fef08a;
+  border-radius: 4px;
+  outline: none;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-group input:focus {
+  border-color: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+.form-submit-btn {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 14px;
+
+  color: #ffffff;
+  background: linear-gradient(
+    135deg,
+    #2a1ad4 0%,
+    #f2f222 100%
+  );
+
+  border: none;
+  border-radius: 4px;
+
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(42, 26, 212, 0.2);
+}
+
+.form-terms {
+  margin: 0;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #121214;
+}
+
+/* Tablet */
+@media (max-width: 1100px) {
+  .cat-flex-container {
+    flex-direction: column;
+  }
+
+  .cat-right-col {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+/* Small Tablet */
+@media (max-width: 768px) {
+  .cat-grid-wrapper {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cat-redesign-card {
+    min-height: 140px;
+    padding: 15px;
+  }
+
+  .cat-redesign-title {
+    font-size: 16px;
+  }
+
+  .cat-card-image-box {
+    width: 85px;
+    height: 95px;
+    flex-basis: 85px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .cat-grid-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .cat-redesign-card {
+    min-height: 135px;
+    padding: 16px;
+  }
+
+  .cat-redesign-title {
+    font-size: 17px;
+  }
+
+  .cat-card-image-box {
+    width: 100px;
+    height: 100px;
+    flex-basis: 100px;
+  }
+}

@@ -1,0 +1,178 @@
+.featured-courses {
+  padding: 30px 0;
+  background: linear-gradient(180deg, #fff8f4 0%, #ffffff 100%);
+  position: relative;
+}
+
+.featured-courses::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-blue), var(--accent-orange), var(--primary-yellow));
+}
+
+.fc-header {
+  text-align: center;
+  margin-bottom: 55px;
+}
+
+.fc-title {
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--primary-blue);
+  letter-spacing: -0.5px;
+  margin-top: 10px;
+}
+
+.fc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+@media (max-width: 900px) {
+  .fc-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .fc-grid { grid-template-columns: 1fr; }
+}
+
+/* Card */
+.fc-card {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1.5px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+
+.fc-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 24px 60px rgba(26, 27, 75, 0.14);
+  border-color: transparent;
+}
+
+/* Image */
+.fc-img-wrapper {
+  position: relative;
+  height: 210px;
+  overflow: hidden;
+}
+
+.fc-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.fc-card:hover .fc-img {
+  transform: scale(1.07);
+}
+
+/* Badges */
+.fc-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  padding: 5px 12px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.fc-badge-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.badge-orange { background: var(--accent-orange); color: white; }
+.badge-green  { background: #10b981; color: white; }
+.badge-yellow { background: #f59e0b; color: white; }
+.badge-teal   { background: #0891b2; color: white; }
+.badge-blue   { background: #3b82f6; color: white; }
+
+/* Body */
+.fc-body {
+  padding: 20px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.fc-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.fc-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.fc-reviews {
+  font-size: 12px;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.fc-course-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--primary-blue);
+  line-height: 1.4;
+  margin-bottom: 14px;
+  flex: 1;
+}
+
+.fc-meta {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 16px;
+}
+
+.fc-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12.5px;
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+.fc-explore {
+  display: inline-flex;
+  align-items: center;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--accent-orange);
+  transition: var(--transition);
+  letter-spacing: 0.3px;
+}
+
+.fc-explore:hover {
+  gap: 10px;
+  color: var(--accent-orange-dark);
+}
+
+@media (max-width: 768px) {
+  .featured-courses { padding: 50px 0; }
+  .fc-title { font-size: 26px; }
+}

@@ -1,0 +1,168 @@
+.cnc-page {
+  padding: 60px 0 100px;
+  background: #fffaf7; /* Matching the background from the screenshot */
+  min-height: 80vh;
+}
+
+.cnc-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.cnc-title {
+  font-size: 32px;
+  font-weight: 900;
+  color: #1a1b4b; /* Deep blue */
+  letter-spacing: -0.5px;
+  margin-top: 8px;
+}
+
+.cnc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .cnc-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .cnc-grid { grid-template-columns: 1fr; }
+}
+
+/* Card */
+.cnc-card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+.cnc-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+}
+
+/* Image */
+.cnc-img-wrapper {
+  height: 240px;
+  overflow: hidden;
+  position: relative;
+}
+
+.cnc-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.cnc-card:hover .cnc-img {
+  transform: scale(1.05);
+}
+
+/* Body */
+.cnc-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cnc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  align-self: flex-start;
+}
+
+.cnc-badge-dot {
+  font-weight: 900;
+}
+
+.badge-orange { background: #f26522; color: white; }
+.badge-green  { background: #10b981; color: white; }
+.badge-yellow { background: #facc15; color: white; }
+.badge-pink   { background: #d946ef; color: white; }
+.badge-teal   { background: #14b8a6; color: white; }
+
+.cnc-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.cnc-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.cnc-reviews {
+  font-size: 11px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.cnc-course-title {
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.4;
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.text-blue { color: #1a1b4b; }
+.text-orange { color: #f26522; }
+
+.cnc-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 16px;
+}
+
+.cnc-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.cnc-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cnc-enroll {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1b4b;
+  transition: color 0.3s;
+}
+
+.cnc-card:hover .cnc-enroll {
+  color: #f26522;
+}
+
+.cnc-price {
+  font-size: 14px;
+  font-weight: 800;
+  color: #1a1b4b;
+}
