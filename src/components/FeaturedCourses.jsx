@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Clock, MapPin, Star } from 'lucide-react';
+import api from '../utils/api';
 import './FeaturedCourses.css';
 
-const courses = [
+const initialCourses = [
   {
-    id: 1,
+    _id: '1',
     img: '/course_cnc.png',
     badge: 'CNC, VMC & Manufacturing Skills',
     badgeColor: 'badge-orange',
@@ -17,7 +18,7 @@ const courses = [
     link: '/courses/cnc-programming-course'
   },
   {
-    id: 2,
+    _id: '2',
     img: '/course_plc.png',
     badge: 'PLC Automation',
     badgeColor: 'badge-green',
@@ -29,7 +30,7 @@ const courses = [
     link: '/courses/plc-scada-course'
   },
   {
-    id: 3,
+    _id: '3',
     img: '/course_cad.png',
     badge: 'CAD-CAM Designing',
     badgeColor: 'badge-yellow',
@@ -41,7 +42,7 @@ const courses = [
     link: '/courses/cad-cam-course'
   },
   {
-    id: 4,
+    _id: '4',
     img: '/course_ev.png',
     badge: 'Electric Vehicle',
     badgeColor: 'badge-teal',
@@ -53,7 +54,7 @@ const courses = [
     link: '/courses/electric-vehicle-course'
   },
   {
-    id: 5,
+    _id: '5',
     img: '/course_digital.png',
     badge: 'Digital Marketing with AI',
     badgeColor: 'badge-blue',
@@ -65,7 +66,7 @@ const courses = [
     link: '/courses/digital-marketing-course'
   },
   {
-    id: 6,
+    _id: '6',
     img: '/course_electronics.png',
     badge: 'Electronics & Robotics',
     badgeColor: 'badge-orange',
@@ -91,6 +92,28 @@ const renderStars = (rating) => {
 };
 
 const FeaturedCourses = () => {
+  const [courses, setCourses] = useState(initialCourses);
+
+  useEffect(() => {
+    const getFeaturedCourses = async () => {
+      try {
+        const { data } = await api.get('/courses');
+        if (data && data.length > 0) {
+          // Filter by isFeatured, or fallback to first 6 if none are marked
+          const featured = data.filter(c => c.isFeatured);
+          if (featured.length > 0) {
+            setCourses(featured);
+          } else {
+            setCourses(data.slice(0, 6));
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching featured courses:', error);
+      }
+    };
+    getFeaturedCourses();
+  }, []);
+
   return (
     <section className="featured-courses">
       <div className="container">
@@ -99,32 +122,35 @@ const FeaturedCourses = () => {
           <h2 className="fc-title">Pick A Course To Get Started</h2>
         </div>
         <div className="fc-grid">
-          {courses.map((course) => (
-            <Link to={course.link} key={course.id} className="fc-card" style={{ textDecoration: 'none' }}>
-              <div className="fc-img-wrapper">
-                <img src={course.img} alt={course.title} className="fc-img" />
-                <span className={`fc-badge ${course.badgeColor}`}>
-                  <span className="fc-badge-dot">+</span> {course.badge}
-                </span>
-              </div>
-              <div className="fc-body">
-                <div className="fc-rating-row">
-                  <div className="fc-stars">{renderStars(course.rating)}</div>
-                  <span className="fc-reviews">{course.reviews} reviews</span>
-                </div>
-                <h3 className="fc-course-title" style={{ color: '#1a1b4b' }}>{course.title}</h3>
-                <div className="fc-meta">
-                  <span className="fc-meta-item">
-                    <Clock size={13} /> {course.duration}
-                  </span>
-                  <span className="fc-meta-item">
-                    <MapPin size={13} /> {course.location}
+          {courses.map((course) => {
+            const courseLink = `/course/${course.slug || course._id || course.id}`;
+            return (
+              <Link to={courseLink} key={course._id} className="fc-card" style={{ textDecoration: 'none' }}>
+                <div className="fc-img-wrapper">
+                  <img src={course.img} alt={course.title} className="fc-img" />
+                  <span className={`fc-badge ${course.badgeColor}`}>
+                    <span className="fc-badge-dot">+</span> {course.badge}
                   </span>
                 </div>
-                <span className="fc-explore">Explore More →</span>
-              </div>
-            </Link>
-          ))}
+                <div className="fc-body">
+                  <div className="fc-rating-row">
+                    <div className="fc-stars">{renderStars(course.rating)}</div>
+                    <span className="fc-reviews">{course.reviews} reviews</span>
+                  </div>
+                  <h3 className="fc-course-title" style={{ color: '#1a1b4b' }}>{course.title}</h3>
+                  <div className="fc-meta">
+                    <span className="fc-meta-item">
+                      <Clock size={13} /> {course.duration}
+                    </span>
+                    <span className="fc-meta-item">
+                      <MapPin size={13} /> {course.location}
+                    </span>
+                  </div>
+                  <span className="fc-explore">Explore More →</span>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </div>
     </section>

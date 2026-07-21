@@ -1,0 +1,919 @@
+/* =========================================
+   WHY CHOOSE SKILLSERVE
+========================================= */
+
+.why-skillserve {
+  --why-navy-950: #0d0b2b;
+  --why-navy-900: #12123d;
+  --why-navy-800: #1a1b4b;
+  --why-navy-700: #292a63;
+
+  --why-yellow: #f2df00;
+  --why-yellow-light: #fff66d;
+  --why-orange: #f26522;
+
+  --why-white: #ffffff;
+  --why-text: #1a1b31;
+  --why-muted: #666c7f;
+  --why-border: #e3e5ee;
+
+  position: relative;
+  width: 100%;
+  padding: 76px 0;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 0% 0%,
+      rgba(242, 223, 0, 0.11),
+      transparent 26%
+    ),
+    radial-gradient(
+      circle at 100% 100%,
+      rgba(41, 42, 99, 0.08),
+      transparent 28%
+    ),
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #f7f8fc 100%
+    );
+}
+
+.why-skillserve *,
+.why-skillserve *::before,
+.why-skillserve *::after {
+  box-sizing: border-box;
+}
+
+.why-skillserve::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+
+  height: 4px;
+
+  background: linear-gradient(
+    90deg,
+    var(--why-navy-800),
+    var(--why-yellow),
+    var(--why-orange),
+    var(--why-yellow),
+    var(--why-navy-800)
+  );
+
+  background-size: 250% 100%;
+  animation: why-gradient-move 9s linear infinite;
+}
+
+@keyframes why-gradient-move {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 250% 0;
+  }
+}
+
+.why-skillserve-container {
+  position: relative;
+  z-index: 2;
+
+  width: min(100% - 40px, 1540px);
+  margin: 0 auto;
+}
+
+/* Background decoration */
+
+.why-skillserve-decoration {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.why-decoration-one {
+  top: -170px;
+  right: -130px;
+
+  width: 390px;
+  height: 390px;
+
+  border: 65px solid rgba(26, 27, 75, 0.025);
+}
+
+.why-decoration-two {
+  bottom: -170px;
+  left: -120px;
+
+  width: 340px;
+  height: 340px;
+
+  background: rgba(242, 223, 0, 0.045);
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.why-skillserve-header {
+  margin-bottom: 43px;
+
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.1fr)
+    minmax(320px, 0.65fr);
+
+  align-items: end;
+  gap: 55px;
+}
+
+.why-skillserve-badge {
+  width: fit-content;
+  margin-bottom: 13px;
+  padding: 8px 12px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  color: var(--why-navy-800);
+  background: rgba(242, 223, 0, 0.17);
+
+  border: 1px solid rgba(242, 223, 0, 0.42);
+  border-radius: 999px;
+
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.75px;
+  text-transform: uppercase;
+}
+
+.why-skillserve-heading h2 {
+  max-width: 790px;
+  margin: 0;
+
+  color: var(--why-navy-800);
+  font-size: clamp(35px, 3.7vw, 52px);
+  font-weight: 900;
+  line-height: 1.14;
+  letter-spacing: -1.35px;
+}
+
+.why-skillserve-heading h2 strong {
+  color: var(--why-orange);
+}
+
+.why-skillserve-header-description p {
+  margin: 0;
+
+  color: var(--why-muted);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.78;
+}
+
+.why-heading-line {
+  margin-top: 17px;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.why-heading-line span {
+  height: 4px;
+  border-radius: 999px;
+}
+
+.why-heading-line span:nth-child(1) {
+  width: 50px;
+  background: var(--why-navy-800);
+}
+
+.why-heading-line span:nth-child(2) {
+  width: 24px;
+  background: var(--why-yellow);
+}
+
+.why-heading-line span:nth-child(3) {
+  width: 10px;
+  background: var(--why-orange);
+}
+
+/* =========================================
+   MAIN LAYOUT
+========================================= */
+
+.why-skillserve-layout {
+  display: grid;
+  grid-template-columns:
+    minmax(320px, 0.72fr)
+    minmax(0, 1.28fr);
+
+  align-items: stretch;
+  gap: 23px;
+}
+
+/* =========================================
+   LEFT FEATURE PANEL
+========================================= */
+
+.why-skillserve-feature-panel {
+  position: relative;
+  min-height: 100%;
+  padding: 37px;
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+
+  color: #ffffff;
+
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(242, 223, 0, 0.18),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 0% 100%,
+      rgba(242, 101, 34, 0.11),
+      transparent 34%
+    ),
+    linear-gradient(
+      145deg,
+      var(--why-navy-950),
+      var(--why-navy-800)
+    );
+
+  border-radius: 22px;
+
+  box-shadow:
+    0 22px 48px rgba(13, 11, 43, 0.19);
+}
+
+.why-panel-pattern {
+  position: absolute;
+  inset: 0;
+
+  opacity: 0.025;
+
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.9) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.9) 1px,
+      transparent 1px
+    );
+
+  background-size: 40px 40px;
+}
+
+.why-panel-circle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.why-panel-circle-one {
+  top: -110px;
+  right: -105px;
+
+  width: 265px;
+  height: 265px;
+
+  border: 45px solid rgba(255, 255, 255, 0.04);
+}
+
+.why-panel-circle-two {
+  bottom: -130px;
+  left: -95px;
+
+  width: 260px;
+  height: 260px;
+
+  background: rgba(242, 223, 0, 0.045);
+}
+
+.why-feature-panel-content {
+  position: relative;
+  z-index: 2;
+}
+
+.why-panel-label {
+  width: fit-content;
+  margin-bottom: 21px;
+  padding: 7px 11px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  color: var(--why-yellow);
+  background: rgba(242, 223, 0, 0.09);
+  border: 1px solid rgba(242, 223, 0, 0.22);
+  border-radius: 999px;
+
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.why-panel-icon {
+  width: 69px;
+  height: 69px;
+  margin-bottom: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--why-navy-950);
+
+  background: linear-gradient(
+    135deg,
+    var(--why-yellow),
+    var(--why-yellow-light)
+  );
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 15px 34px rgba(242, 223, 0, 0.18);
+}
+
+.why-feature-panel-content h3 {
+  margin: 0 0 14px;
+
+  color: #ffffff;
+  font-size: 31px;
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: -0.75px;
+}
+
+.why-feature-panel-content h3 strong {
+  display: block;
+  color: var(--why-yellow);
+}
+
+.why-feature-panel-content > p {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.75;
+}
+
+.why-panel-highlights {
+  margin-top: 25px;
+
+  display: grid;
+  gap: 11px;
+}
+
+.why-panel-highlight {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.why-panel-highlight svg {
+  flex-shrink: 0;
+  color: var(--why-yellow);
+}
+
+.why-panel-actions {
+  margin-top: 29px;
+
+  display: grid;
+  gap: 10px;
+}
+
+.why-panel-primary-btn,
+.why-panel-call-btn {
+  min-height: 49px;
+  padding: 11px 17px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  border-radius: 10px;
+
+  font-size: 12px;
+  font-weight: 850;
+  text-align: center;
+  text-decoration: none;
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.why-panel-primary-btn {
+  color: var(--why-navy-950);
+
+  background: linear-gradient(
+    135deg,
+    var(--why-yellow),
+    var(--why-yellow-light)
+  );
+
+  box-shadow:
+    0 12px 25px rgba(242, 223, 0, 0.16);
+}
+
+.why-panel-primary-btn:hover {
+  color: var(--why-navy-950);
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 17px 30px rgba(242, 223, 0, 0.23);
+}
+
+.why-panel-primary-btn svg {
+  transition: transform 0.25s ease;
+}
+
+.why-panel-primary-btn:hover svg {
+  transform: translateX(4px);
+}
+
+.why-panel-call-btn {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.why-panel-call-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.13);
+  transform: translateY(-3px);
+}
+
+/* =========================================
+   BENEFIT CARDS
+========================================= */
+
+.why-skillserve-benefits {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 17px;
+}
+
+.why-benefit-card {
+  position: relative;
+  min-height: 205px;
+  padding: 22px;
+
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--why-border);
+  border-radius: 17px;
+
+  box-shadow:
+    0 11px 30px rgba(18, 18, 61, 0.06);
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.why-benefit-card::before {
+  content: "";
+  position: absolute;
+  top: -62px;
+  right: -62px;
+
+  width: 135px;
+  height: 135px;
+
+  background: rgba(242, 223, 0, 0.07);
+  border-radius: 50%;
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease;
+}
+
+.why-benefit-card:hover {
+  border-color: rgba(242, 223, 0, 0.9);
+  transform: translateY(-7px);
+
+  box-shadow:
+    0 20px 42px rgba(18, 18, 61, 0.12);
+}
+
+.why-benefit-card:hover::before {
+  background: rgba(242, 223, 0, 0.13);
+  transform: scale(1.1);
+}
+
+.why-benefit-number {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  z-index: 2;
+
+  color: rgba(26, 27, 75, 0.1);
+  font-size: 34px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.why-benefit-icon {
+  position: relative;
+  z-index: 2;
+
+  width: 50px;
+  height: 50px;
+  margin-bottom: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--why-navy-950);
+  background: var(--why-yellow);
+  border-radius: 13px;
+}
+
+.why-benefit-content {
+  position: relative;
+  z-index: 2;
+}
+
+.why-benefit-content h3 {
+  margin: 0 0 9px;
+
+  color: var(--why-navy-800);
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.why-benefit-content p {
+  margin: 0;
+
+  color: var(--why-muted);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.68;
+}
+
+.why-benefit-bottom-line {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  height: 4px;
+
+  background: linear-gradient(
+    90deg,
+    var(--why-navy-800),
+    var(--why-yellow),
+    var(--why-orange)
+  );
+
+  transform: scaleX(0);
+  transform-origin: left;
+
+  transition: transform 0.3s ease;
+}
+
+.why-benefit-card:hover
+  .why-benefit-bottom-line {
+  transform: scaleX(1);
+}
+
+/* =========================================
+   TRUST STRIP
+========================================= */
+
+.why-skillserve-trust-strip {
+  margin-top: 23px;
+  padding: 23px 27px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 35px;
+
+  background: #ffffff;
+  border: 1px solid var(--why-border);
+  border-radius: 18px;
+
+  box-shadow:
+    0 13px 34px rgba(18, 18, 61, 0.07);
+}
+
+.why-trust-intro {
+  min-width: 285px;
+
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.why-trust-intro-icon {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--why-navy-950);
+  background: var(--why-yellow);
+  border-radius: 13px;
+}
+
+.why-trust-intro span {
+  display: block;
+  margin-bottom: 4px;
+
+  color: var(--why-orange);
+  font-size: 11px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.why-trust-intro h3 {
+  margin: 0;
+
+  color: var(--why-navy-800);
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.why-trust-items {
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 23px;
+}
+
+.why-trust-item {
+  min-width: 105px;
+  text-align: center;
+}
+
+.why-trust-item strong {
+  display: block;
+  margin-bottom: 4px;
+
+  color: var(--why-navy-800);
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.why-trust-item span {
+  color: var(--why-muted);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.why-trust-divider {
+  width: 1px;
+  height: 38px;
+  flex-shrink: 0;
+
+  background: var(--why-border);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1150px) {
+  .why-skillserve-layout {
+    grid-template-columns:
+      minmax(300px, 0.8fr)
+      minmax(0, 1.2fr);
+  }
+
+  .why-skillserve-feature-panel {
+    padding: 30px;
+  }
+
+  .why-feature-panel-content h3 {
+    font-size: 27px;
+  }
+
+  .why-benefit-card {
+    min-height: 210px;
+    padding: 19px;
+  }
+
+  .why-trust-items {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 950px) {
+  .why-skillserve {
+    padding: 65px 0;
+  }
+
+  .why-skillserve-header {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .why-skillserve-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .why-skillserve-feature-panel {
+    min-height: auto;
+  }
+
+  .why-panel-actions {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .why-skillserve-trust-strip {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .why-trust-items {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 700px) {
+  .why-skillserve-container {
+    width: min(100% - 24px, 1540px);
+  }
+
+  .why-skillserve-heading h2 {
+    font-size: 31px;
+  }
+
+  .why-skillserve-header-description p {
+    font-size: 14px;
+  }
+
+  .why-skillserve-benefits {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .why-benefit-card {
+    min-height: auto;
+  }
+
+  .why-trust-items {
+    display: grid;
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .why-trust-divider {
+    display: none;
+  }
+
+  .why-trust-item {
+    min-width: 0;
+    padding: 12px;
+
+    background: #f8f8fc;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 520px) {
+  .why-skillserve {
+    padding: 51px 0;
+  }
+
+  .why-skillserve-header {
+    margin-bottom: 28px;
+  }
+
+  .why-skillserve-badge {
+    padding: 7px 10px;
+    font-size: 9px;
+  }
+
+  .why-skillserve-heading h2 {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  .why-skillserve-feature-panel {
+    padding: 25px 20px;
+    border-radius: 17px;
+  }
+
+  .why-panel-icon {
+    width: 57px;
+    height: 57px;
+  }
+
+  .why-feature-panel-content h3 {
+    font-size: 24px;
+  }
+
+  .why-feature-panel-content > p {
+    font-size: 14px;
+  }
+
+  .why-panel-highlight {
+    font-size: 13px;
+  }
+
+  .why-panel-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .why-benefit-card {
+    padding: 19px;
+    border-radius: 14px;
+  }
+
+  .why-benefit-icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .why-benefit-content h3 {
+    font-size: 17px;
+  }
+
+  .why-benefit-content p {
+    font-size: 14px;
+  }
+
+  .why-skillserve-trust-strip {
+    padding: 20px 16px;
+  }
+
+  .why-trust-intro {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .why-skillserve-heading h2 {
+    font-size: 25px;
+  }
+
+  .why-skillserve-feature-panel {
+    padding: 22px 17px;
+  }
+
+  .why-feature-panel-content h3 {
+    font-size: 22px;
+  }
+
+  .why-trust-items {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .why-skillserve::before {
+    animation: none;
+  }
+
+  .why-benefit-card,
+  .why-benefit-card::before,
+  .why-benefit-bottom-line,
+  .why-panel-primary-btn,
+  .why-panel-call-btn,
+  .why-panel-primary-btn svg {
+    transition: none;
+  }
+}

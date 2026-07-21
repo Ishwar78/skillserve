@@ -1,194 +1,484 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { User, Users, Menu, X } from "lucide-react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+
+import {
+  Link,
+  NavLink,
+  useLocation,
+} from "react-router-dom";
+
+import {
+  ArrowUpRight,
+  ChevronDown,
+  Menu,
+  User,
+  Users,
+  X,
+} from "lucide-react";
+
 import "./Navbar.css";
 
+const courseLinks = [
+  {
+    id: 1,
+    title: "CNC - VMC & Manufacturing",
+    description: "Machining and manufacturing skills",
+    link: "/courses/cnc-programming-course",
+  },
+  {
+    id: 2,
+    title: "CAD - CAM & 3D Printing",
+    description: "Design and production software",
+    link: "/courses/cad-cam-course",
+  },
+  {
+    id: 3,
+    title: "Electric Vehicles",
+    description: "EV systems, battery and diagnostics",
+    link: "/courses/electric-vehicle-course",
+  },
+  {
+    id: 4,
+    title: "Electronics & Robotics",
+    description: "Embedded electronics and robotics",
+    link: "/courses/electronics-robotics-course",
+  },
+  {
+    id: 5,
+    title: "PLC, Automation & IIOT",
+    description: "Industrial automation technology",
+    link: "/courses/plc-scada-course",
+  },
+  {
+    id: 6,
+    title: "Digital Marketing With AI Tools",
+    description: "Marketing, content and AI skills",
+    link: "/courses/digital-marketing-course",
+  },
+];
+
+const applyLinks = [
+  {
+    id: 1,
+    title: "CNC - VMC & Manufacturing",
+    link: "https://www.cnc.skillserveacademy.in/",
+  },
+  {
+    id: 2,
+    title: "CAD - CAM & 3D Printing",
+    link: "https://www.cad.skillserveacademy.in/",
+  },
+  {
+    id: 3,
+    title: "Electric Vehicles",
+    link: "https://www.ev.skillserveacademy.in/",
+  },
+  {
+    id: 4,
+    title: "Electronics & Robotics",
+    link: "https://www.electronics.skillserveacademy.in/",
+  },
+  {
+    id: 5,
+    title: "PLC, Automation & IIOT",
+    link: "https://www.iot.skillserveacademy.in/",
+  },
+  {
+    id: 6,
+    title: "Digital Marketing With AI Tools",
+    link: "https://www.dm.skillserveacademy.in/",
+  },
+];
+
 const Navbar = () => {
-  const [isCoursesOpen, setIsCoursesOpen] = useState(false);
-  const [isApplyOpen, setIsApplyOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isCoursesOpen, setIsCoursesOpen] =
+    useState(false);
+
+  const [isApplyOpen, setIsApplyOpen] =
+    useState(false);
+
+  const [isMobileMenuOpen, setIsMobileMenuOpen] =
+    useState(false);
+
+  const navbarRef = useRef(null);
+  const location = useLocation();
+
+  const isCoursePage =
+    location.pathname.startsWith("/courses/");
+
+  const isDesktopView = () =>
+    window.innerWidth > 1080;
+
+  const closeDropdowns = () => {
+    setIsCoursesOpen(false);
+    setIsApplyOpen(false);
+  };
+
+  const closeAllMenus = () => {
+    closeDropdowns();
+    setIsMobileMenuOpen(false);
+  };
+
+  const toggleCourses = () => {
+    setIsCoursesOpen((previous) => !previous);
+    setIsApplyOpen(false);
+  };
+
+  const toggleApply = () => {
+    setIsApplyOpen((previous) => !previous);
+    setIsCoursesOpen(false);
+  };
+
+  useEffect(() => {
+    closeAllMenus();
+  }, [location.pathname]);
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (
+        navbarRef.current &&
+        !navbarRef.current.contains(event.target)
+      ) {
+        closeAllMenus();
+      }
+    };
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        closeAllMenus();
+      }
+    };
+
+    document.addEventListener(
+      "mousedown",
+      handleOutsideClick
+    );
+
+    document.addEventListener(
+      "keydown",
+      handleEscape
+    );
+
+    return () => {
+      document.removeEventListener(
+        "mousedown",
+        handleOutsideClick
+      );
+
+      document.removeEventListener(
+        "keydown",
+        handleEscape
+      );
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 1080) {
+        setIsMobileMenuOpen(false);
+      } else {
+        closeDropdowns();
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener(
+        "resize",
+        handleResize
+      );
+    };
+  }, []);
+
+  useEffect(() => {
+    if (
+      isMobileMenuOpen &&
+      window.innerWidth <= 1080
+    ) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileMenuOpen]);
 
   return (
-    <nav className="navbar">
-      <div className="container navbar-content">
-        <Link to="/" className="navbar-logo">
-          <img src="/logo.png" alt="SkillServe Academy" />
+    <nav
+      ref={navbarRef}
+      className="skill-navbar"
+      aria-label="Main navigation"
+    >
+      <div className="skill-navbar-container">
+        {/* Logo */}
+        <Link
+          to="/"
+          className="skill-navbar-logo"
+          aria-label="SkillServe Academy Home"
+          onClick={closeAllMenus}
+        >
+          <img
+            src="/logo.png"
+            alt="SkillServe Academy"
+          />
         </Link>
 
-        {/* Mobile Menu */}
+        {/* Mobile Toggle */}
         <button
-          className="mobile-menu-btn"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          type="button"
+          className={`skill-mobile-toggle ${
+            isMobileMenuOpen ? "active" : ""
+          }`}
+          onClick={() =>
+            setIsMobileMenuOpen(
+              (previous) => !previous
+            )
+          }
+          aria-label={
+            isMobileMenuOpen
+              ? "Close navigation menu"
+              : "Open navigation menu"
+          }
+          aria-expanded={isMobileMenuOpen}
         >
-          {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          {isMobileMenuOpen ? (
+            <X size={25} />
+          ) : (
+            <Menu size={25} />
+          )}
         </button>
 
-        <div className={`navbar-collapse ${isMobileMenuOpen ? "show" : ""}`}>
-          <ul className="navbar-links">
-
+        <div
+          className={`skill-navbar-collapse ${
+            isMobileMenuOpen ? "show" : ""
+          }`}
+        >
+          <ul className="skill-navbar-links">
             {/* Courses */}
             <li
-              className="nav-item dropdown"
-              onMouseEnter={() => window.innerWidth > 768 && setIsCoursesOpen(true)}
-              onMouseLeave={() => window.innerWidth > 768 && setIsCoursesOpen(false)}
+              className={`skill-nav-item skill-dropdown ${
+                isCoursesOpen ? "open" : ""
+              }`}
+              onMouseEnter={() => {
+                if (isDesktopView()) {
+                  setIsCoursesOpen(true);
+                  setIsApplyOpen(false);
+                }
+              }}
+              onMouseLeave={() => {
+                if (isDesktopView()) {
+                  setIsCoursesOpen(false);
+                }
+              }}
             >
-              <span className="nav-link" onClick={() => setIsCoursesOpen(!isCoursesOpen)}>
-                Courses <span>{isCoursesOpen ? "-" : "+"}</span>
-              </span>
+              <button
+                type="button"
+                className={`skill-nav-link skill-dropdown-trigger ${
+                  isCoursePage ? "active" : ""
+                }`}
+                onClick={toggleCourses}
+                aria-expanded={isCoursesOpen}
+              >
+                <span>Courses</span>
 
-              {isCoursesOpen && (
-                <ul className="dropdown-menu">
-                  <li>
-                    <Link to="/courses/cnc-programming-course" onClick={() => setIsMobileMenuOpen(false)}>
-                      CNC - VMC & Manufacturing
-                    </Link>
-                  </li>
+                <ChevronDown
+                  size={17}
+                  className="skill-dropdown-chevron"
+                />
+              </button>
 
-                  <li>
-                    <Link to="/courses/cad-cam-course">
-                      CAD - CAM & 3D Printing
-                    </Link>
-                  </li>
+              <div
+                className={`skill-dropdown-menu skill-courses-dropdown ${
+                  isCoursesOpen ? "show" : ""
+                }`}
+              >
+                <div className="skill-dropdown-header">
+                  <span>
+                    Industry-Focused Training
+                  </span>
 
-                  <li>
-                    <Link to="/courses/electric-vehicle-course" onClick={() => setIsMobileMenuOpen(false)}>
-                      Electric Vehicles
-                    </Link>
-                  </li>
+                  <h3>Explore Our Courses</h3>
+                </div>
 
-                  <li>
-                    <Link to="/courses/electronics-robotics-course" onClick={() => setIsMobileMenuOpen(false)}>
-                      Electronics & Robotics
-                    </Link>
-                  </li>
+                <div className="skill-course-dropdown-grid">
+                  {courseLinks.map(
+                    (course, index) => (
+                      <Link
+                        key={course.id}
+                        to={course.link}
+                        className="skill-course-dropdown-item"
+                        onClick={closeAllMenus}
+                      >
+                        <span className="skill-course-number">
+                          {String(index + 1).padStart(
+                            2,
+                            "0"
+                          )}
+                        </span>
 
-                  <li>
-                    <Link to="/courses/plc-scada-course" onClick={() => setIsMobileMenuOpen(false)}>
-                      PLC, Automation & IIOT
-                    </Link>
-                  </li>
+                        <span className="skill-course-content">
+                          <strong>
+                            {course.title}
+                          </strong>
 
-                  <li>
-                    <Link to="/courses/digital-marketing-course" onClick={() => setIsMobileMenuOpen(false)}>
-                      Digital Marketing With AI Tools
-                    </Link>
-                  </li>
-                </ul>
-              )}
+                          <small>
+                            {course.description}
+                          </small>
+                        </span>
+
+                        <ArrowUpRight
+                          size={17}
+                          className="skill-course-arrow"
+                        />
+                      </Link>
+                    )
+                  )}
+                </div>
+              </div>
             </li>
 
-            <li className="nav-item">
-              <Link to="/blog" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+            {/* Blogs */}
+            <li className="skill-nav-item">
+              <NavLink
+                to="/blog"
+                className={({ isActive }) =>
+                  `skill-nav-link ${
+                    isActive ? "active" : ""
+                  }`
+                }
+                onClick={closeAllMenus}
+              >
                 Blogs
-              </Link>
+              </NavLink>
             </li>
 
-            <li className="nav-item">
-              <Link to="/about" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
-                About <span>+</span>
-              </Link>
+            {/* About */}
+            <li className="skill-nav-item">
+              <NavLink
+                to="/about"
+                className={({ isActive }) =>
+                  `skill-nav-link ${
+                    isActive ? "active" : ""
+                  }`
+                }
+                onClick={closeAllMenus}
+              >
+                About
+              </NavLink>
             </li>
 
-            <li className="nav-item">
-              <Link to="/contact" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+            {/* Contact */}
+            <li className="skill-nav-item">
+              <NavLink
+                to="/contact"
+                className={({ isActive }) =>
+                  `skill-nav-link ${
+                    isActive ? "active" : ""
+                  }`
+                }
+                onClick={closeAllMenus}
+              >
                 Contact
-              </Link>
+              </NavLink>
             </li>
 
-            {/* APPLY NOW */}
+            {/* Apply Now */}
             <li
-              className="nav-item dropdown"
-              onMouseEnter={() => window.innerWidth > 768 && setIsApplyOpen(true)}
-              onMouseLeave={() => window.innerWidth > 768 && setIsApplyOpen(false)}
+              className={`skill-nav-item skill-dropdown ${
+                isApplyOpen ? "open" : ""
+              }`}
+              onMouseEnter={() => {
+                if (isDesktopView()) {
+                  setIsApplyOpen(true);
+                  setIsCoursesOpen(false);
+                }
+              }}
+              onMouseLeave={() => {
+                if (isDesktopView()) {
+                  setIsApplyOpen(false);
+                }
+              }}
             >
-              <span className="nav-link" onClick={() => setIsApplyOpen(!isApplyOpen)}>
-                Apply Now <span>{isApplyOpen ? "-" : "+"}</span>
-              </span>
+              <button
+                type="button"
+                className="skill-nav-link skill-dropdown-trigger skill-apply-trigger"
+                onClick={toggleApply}
+                aria-expanded={isApplyOpen}
+              >
+                <span>Apply Now</span>
 
-              {isApplyOpen && (
-                <ul className="dropdown-menu">
+                <ChevronDown
+                  size={17}
+                  className="skill-dropdown-chevron"
+                />
+              </button>
 
-                  <li>
-                    <a
-                      href="https://www.cnc.skillserveacademy.in/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      CNC - VMC & Manufacturing
-                    </a>
-                  </li>
+              <div
+                className={`skill-dropdown-menu skill-apply-dropdown ${
+                  isApplyOpen ? "show" : ""
+                }`}
+              >
+                <div className="skill-dropdown-header">
+                  <span>
+                    Start Your Application
+                  </span>
 
-                  <li>
-                    <a
-                      href="https://www.cad.skillserveacademy.in/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      CAD - CAM & 3D Printing
-                    </a>
-                  </li>
+                  <h3>Select Your Programme</h3>
+                </div>
 
-                  <li>
-                    <a
-                      href="https://www.ev.skillserveacademy.in/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      Electric Vehicles
-                    </a>
-                  </li>
+                <div className="skill-apply-list">
+                  {applyLinks.map(
+                    (application, index) => (
+                      <a
+                        key={application.id}
+                        href={application.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="skill-apply-item"
+                        onClick={closeAllMenus}
+                      >
+                        <span className="skill-apply-number">
+                          {String(index + 1).padStart(
+                            2,
+                            "0"
+                          )}
+                        </span>
 
-                  <li>
-                    <a
-                      href="https://www.electronics.skillserveacademy.in/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      Electronics & Robotics
-                    </a>
-                  </li>
+                        <strong>
+                          {application.title}
+                        </strong>
 
-                  <li>
-                    <a
-                      href="https://www.iot.skillserveacademy.in/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      PLC, Automation & IIOT
-                    </a>
-                  </li>
-
-                  <li>
-                    <a
-                      href="https://www.dm.skillserveacademy.in/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      Digital Marketing With AI Tools
-                    </a>
-                  </li>
-
-                </ul>
-              )}
+                        <ArrowUpRight size={17} />
+                      </a>
+                    )
+                  )}
+                </div>
+              </div>
             </li>
-
           </ul>
 
-          <div className="navbar-auth">
-            <button className="btn btn-login">
-              <User size={16} />
-              LOG IN
+          {/* Login / Signup */}
+          <div className="skill-navbar-auth">
+            <button
+              type="button"
+              className="skill-navbar-button skill-login-button"
+            >
+              <User size={18} />
+              <span>Log In</span>
             </button>
 
-            <button className="btn btn-signup">
-              <Users size={16} />
-              SIGN UP
+            <button
+              type="button"
+              className="skill-navbar-button skill-signup-button"
+            >
+              <Users size={18} />
+              <span>Sign Up</span>
             </button>
           </div>
         </div>

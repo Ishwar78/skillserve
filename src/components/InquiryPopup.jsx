@@ -1,154 +1,613 @@
-import React, { useState, useEffect } from 'react';
-import { stateDistrictMap, domainCourseMap, domainsList } from '../data/locations';
-import { X } from 'lucide-react';
-import './InquiryPopup.css';
+import React, { useEffect, useState } from "react";
+
+import {
+  BookOpenCheck,
+  CheckCircle2,
+  GraduationCap,
+  MessageSquareText,
+  Send,
+  ShieldCheck,
+  Sparkles,
+  X,
+} from "lucide-react";
+
+import {
+  stateDistrictMap,
+  domainCourseMap,
+  domainsList,
+} from "../data/locations";
+
+import api from "../utils/api";
+import "./InquiryPopup.css";
+
+const initialFormData = {
+  name: "",
+  fatherName: "",
+  mobile: "",
+  email: "",
+  district: "",
+  course: "",
+  message: "",
+};
 
 const InquiryPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedState, setSelectedState] = useState('');
-  const [districts, setDistricts] = useState([]);
-  const [selectedDomain, setSelectedDomain] = useState('');
-  const [availableCourses, setAvailableCourses] = useState([]);
-  
-  const [formData, setFormData] = useState({
-    name: '',
-    fatherName: '',
-    mobile: '',
-    email: '',
-    district: '',
-    course: '',
-    message: ''
-  });
+  const [contactPhone, setContactPhone] = useState("9484794843");
 
   useEffect(() => {
-    // Show popup shortly after website loads
-    const timer = setTimeout(() => {
-      setIsOpen(true);
-    }, 1500);
-    return () => clearTimeout(timer);
+    const fetchContactPhone = async () => {
+      try {
+        const { data } = await api.get('/contact-info');
+        if (data && data.phone) {
+          setContactPhone(data.phone);
+        }
+      } catch (error) {
+        console.error('Failed to fetch contact phone:', error);
+      }
+    };
+    fetchContactPhone();
   }, []);
 
-  const handleClose = () => setIsOpen(false);
+  const [selectedState, setSelectedState] =
+    useState("");
 
-  const handleStateChange = (e) => {
-    const stateName = e.target.value;
+  const [districts, setDistricts] = useState([]);
+
+  const [selectedDomain, setSelectedDomain] =
+    useState("");
+
+  const [availableCourses, setAvailableCourses] =
+    useState([]);
+
+  const [formData, setFormData] =
+    useState(initialFormData);
+
+  /*
+   * Website load hone ke 1.5 second baad
+   * popup automatically open hoga.
+   */
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setIsOpen(true);
+    }, 1500);
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, []);
+
+  /*
+   * Popup open hone par background scrolling
+   * band rahegi aur Escape key se popup close hoga.
+   */
+  useEffect(() => {
+    if (!isOpen) return undefined;
+
+    const previousOverflow =
+      document.body.style.overflow;
+
+    document.body.style.overflow = "hidden";
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener(
+      "keydown",
+      handleEscape
+    );
+
+    return () => {
+      document.body.style.overflow =
+        previousOverflow;
+
+      document.removeEventListener(
+        "keydown",
+        handleEscape
+      );
+    };
+  }, [isOpen]);
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
+  const handleOverlayClick = (event) => {
+    if (
+      event.target === event.currentTarget
+    ) {
+      handleClose();
+    }
+  };
+
+  const handleStateChange = (event) => {
+    const stateName = event.target.value;
+
     setSelectedState(stateName);
-    if (stateName && stateDistrictMap[stateName]) {
-      setDistricts(stateDistrictMap[stateName]);
+
+    setFormData((previous) => ({
+      ...previous,
+      district: "",
+    }));
+
+    if (
+      stateName &&
+      stateDistrictMap[stateName]
+    ) {
+      setDistricts(
+        stateDistrictMap[stateName]
+      );
     } else {
       setDistricts([]);
     }
   };
 
-  const handleDomainChange = (e) => {
-    const domain = e.target.value;
-    setSelectedDomain(domain);
-    setFormData({ ...formData, course: '' });
-    if (domain && domainCourseMap[domain]) {
-      setAvailableCourses(domainCourseMap[domain]);
+  const handleDomainChange = (event) => {
+    const domainName = event.target.value;
+
+    setSelectedDomain(domainName);
+
+    setFormData((previous) => ({
+      ...previous,
+      course: "",
+    }));
+
+    if (
+      domainName &&
+      domainCourseMap[domainName]
+    ) {
+      setAvailableCourses(
+        domainCourseMap[domainName]
+      );
     } else {
       setAvailableCourses([]);
     }
   };
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormData((previous) => ({
+      ...previous,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const { name, fatherName, mobile, email, district, course, message } = formData;
-    
-    const text = `*New Popup Inquiry from Website*
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const {
+      name,
+      fatherName,
+      mobile,
+      email,
+      district,
+      course,
+      message,
+    } = formData;
+
+    // Save to database first
+    try {
+      await api.post('/inquiries', {
+        name,
+        fatherName,
+        mobile,
+        email,
+        state: selectedState,
+        district,
+        domain: selectedDomain,
+        course,
+        message,
+        source: 'Popup'
+      });
+    } catch (err) {
+      console.error('Failed to save popup inquiry to database:', err);
+    }
+
+    const whatsappMessage = `*New Popup Inquiry from SkillServe Website*
+
+*Student Details*
 Name: ${name}
 Father's Name: ${fatherName}
 Mobile: ${mobile}
 Email: ${email}
+
+*Location Details*
 State: ${selectedState}
 District: ${district}
+
+*Course Details*
 Domain: ${selectedDomain}
 Course: ${course}
-Message: ${message}`;
 
-    const encodedText = encodeURIComponent(text);
-    window.open(`https://wa.me/919484794843?text=${encodedText}`, '_blank');
+*Message*
+${message}`;
+
+    const encodedMessage =
+      encodeURIComponent(whatsappMessage);
+
+    const rawPhone = String(contactPhone || '9484794843').replace(/\D/g, '');
+    const whatsappNumber = rawPhone.length === 10 ? `91${rawPhone}` : rawPhone;
+
+    const whatsappUrl =
+      `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+    const whatsappWindow = window.open(
+      whatsappUrl,
+      "_blank",
+      "noopener,noreferrer"
+    );
+
+    if (whatsappWindow) {
+      whatsappWindow.opener = null;
+    }
+
     setIsOpen(false);
   };
 
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
   return (
-    <div className="popup-overlay">
-      <div className="popup-content">
-        <button className="popup-close" onClick={handleClose}>
-          <X size={24} />
+    <div
+      className="inquiry-popup-overlay"
+      onMouseDown={handleOverlayClick}
+      role="presentation"
+    >
+      <div
+        className="inquiry-popup"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="inquiry-popup-title"
+      >
+        {/* Close Button */}
+        <button
+          type="button"
+          className="inquiry-popup-close"
+          onClick={handleClose}
+          aria-label="Close inquiry form"
+        >
+          <X size={23} />
         </button>
-        <h2 className="popup-title">Enquire Now</h2>
-        <p className="popup-subtitle">Fill out the form below and we will get back to you.</p>
-        
-        <form className="popup-form" onSubmit={handleSubmit}>
-          <div className="form-row">
-            <div className="form-group">
-              <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Your Full Name *" required />
+
+        {/* Left Information Panel */}
+        <aside className="inquiry-popup-visual">
+          <div className="inquiry-visual-shape inquiry-visual-shape-one" />
+          <div className="inquiry-visual-shape inquiry-visual-shape-two" />
+          <div className="inquiry-visual-pattern" />
+
+          <div className="inquiry-visual-content">
+            <span className="inquiry-visual-badge">
+              <Sparkles size={16} />
+              SkillServe Admissions
+            </span>
+
+            <div className="inquiry-visual-icon">
+              <GraduationCap size={34} />
             </div>
-            <div className="form-group">
-              <input type="text" name="fatherName" value={formData.fatherName} onChange={handleChange} placeholder="Father's Name *" required />
+
+            <h2>
+              Build Skills For A
+              <strong> Better Career</strong>
+            </h2>
+
+            <p>
+              Share your details and our admission
+              experts will help you select the right
+              practical training programme.
+            </p>
+
+            <div className="inquiry-benefits">
+              <div className="inquiry-benefit-item">
+                <CheckCircle2 size={18} />
+
+                <span>
+                  Free course guidance from experts
+                </span>
+              </div>
+
+              <div className="inquiry-benefit-item">
+                <CheckCircle2 size={18} />
+
+                <span>
+                  Industry-focused practical training
+                </span>
+              </div>
+
+              <div className="inquiry-benefit-item">
+                <CheckCircle2 size={18} />
+
+                <span>
+                  Career and placement assistance
+                </span>
+              </div>
+            </div>
+
+            <div className="inquiry-trust-card">
+              <div className="inquiry-trust-icon">
+                <ShieldCheck size={22} />
+              </div>
+
+              <div>
+                <span>Your information is secure</span>
+                <strong>
+                  Quick response on WhatsApp
+                </strong>
+              </div>
             </div>
           </div>
+        </aside>
 
-          <div className="form-row">
-            <div className="form-group">
-              <input type="tel" name="mobile" value={formData.mobile} onChange={handleChange} placeholder="Mobile Number (10 digits)" pattern="[0-9]{10}" required />
-            </div>
-            <div className="form-group">
-              <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Your Email *" required />
-            </div>
+        {/* Right Form Panel */}
+        <section className="inquiry-popup-panel">
+          <div className="inquiry-popup-header">
+            <span className="inquiry-popup-eyebrow">
+              <BookOpenCheck size={16} />
+              Course Inquiry Form
+            </span>
+
+            <h2 id="inquiry-popup-title">
+              Enquire Now
+            </h2>
+
+            <p>
+              Complete the form below and connect
+              directly with our admission team.
+            </p>
           </div>
 
-          <div className="form-row">
-            <div className="form-group">
-              <select value={selectedState} onChange={handleStateChange} required>
-                <option value="">Select State *</option>
-                {Object.keys(stateDistrictMap).sort().map(state => (
-                  <option key={state} value={state}>{state}</option>
-                ))}
-              </select>
-            </div>
-            <div className="form-group">
-              <select name="district" value={formData.district} onChange={handleChange} required disabled={!selectedState}>
-                <option value="">Select District *</option>
-                {districts.map(district => (
-                  <option key={district} value={district}>{district}</option>
-                ))}
-              </select>
-            </div>
-          </div>
+          <form
+            className="inquiry-popup-form"
+            onSubmit={handleSubmit}
+          >
+            {/* Name Fields */}
+            <div className="inquiry-form-row">
+              <div className="inquiry-form-group">
+                <label htmlFor="inquiry-name">
+                  Student Name
+                  <span>*</span>
+                </label>
 
-          <div className="form-row">
-            <div className="form-group">
-              <select value={selectedDomain} onChange={handleDomainChange} required>
-                <option value="">Select Domain *</option>
-                {domainsList.map(domain => (
-                  <option key={domain} value={domain}>{domain}</option>
-                ))}
-              </select>
-            </div>
-            <div className="form-group">
-              <select name="course" value={formData.course} onChange={handleChange} required disabled={!selectedDomain}>
-                <option value="">Select a Course *</option>
-                {availableCourses.map(course => (
-                  <option key={course} value={course}>{course}</option>
-                ))}
-              </select>
-            </div>
-          </div>
+                <input
+                  id="inquiry-name"
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Enter your full name"
+                  autoComplete="name"
+                  required
+                />
+              </div>
 
-          <div className="form-group full-width">
-            <textarea name="message" value={formData.message} onChange={handleChange} placeholder="Your Message *" rows="3" required></textarea>
-          </div>
+              <div className="inquiry-form-group">
+                <label htmlFor="inquiry-father-name">
+                  Father&apos;s Name
+                  <span>*</span>
+                </label>
 
-          <button type="submit" className="popup-submit-btn">Submit</button>
-        </form>
+                <input
+                  id="inquiry-father-name"
+                  type="text"
+                  name="fatherName"
+                  value={formData.fatherName}
+                  onChange={handleChange}
+                  placeholder="Enter father's name"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Contact Fields */}
+            <div className="inquiry-form-row">
+              <div className="inquiry-form-group">
+                <label htmlFor="inquiry-mobile">
+                  Mobile Number
+                  <span>*</span>
+                </label>
+
+                <input
+                  id="inquiry-mobile"
+                  type="tel"
+                  name="mobile"
+                  value={formData.mobile}
+                  onChange={handleChange}
+                  placeholder="Enter 10-digit number"
+                  pattern="[0-9]{10}"
+                  inputMode="numeric"
+                  maxLength={10}
+                  autoComplete="tel"
+                  required
+                />
+              </div>
+
+              <div className="inquiry-form-group">
+                <label htmlFor="inquiry-email">
+                  Email Address
+                  <span>*</span>
+                </label>
+
+                <input
+                  id="inquiry-email"
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Enter your email"
+                  autoComplete="email"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Location Fields */}
+            <div className="inquiry-form-row">
+              <div className="inquiry-form-group">
+                <label htmlFor="inquiry-state">
+                  State
+                  <span>*</span>
+                </label>
+
+                <select
+                  id="inquiry-state"
+                  value={selectedState}
+                  onChange={handleStateChange}
+                  required
+                >
+                  <option value="">
+                    Select your state
+                  </option>
+
+                  {Object.keys(stateDistrictMap)
+                    .sort()
+                    .map((stateName) => (
+                      <option
+                        key={stateName}
+                        value={stateName}
+                      >
+                        {stateName}
+                      </option>
+                    ))}
+                </select>
+              </div>
+
+              <div className="inquiry-form-group">
+                <label htmlFor="inquiry-district">
+                  District
+                  <span>*</span>
+                </label>
+
+                <select
+                  id="inquiry-district"
+                  name="district"
+                  value={formData.district}
+                  onChange={handleChange}
+                  disabled={!selectedState}
+                  required
+                >
+                  <option value="">
+                    {selectedState
+                      ? "Select your district"
+                      : "Select state first"}
+                  </option>
+
+                  {districts.map((district) => (
+                    <option
+                      key={district}
+                      value={district}
+                    >
+                      {district}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Course Fields */}
+            <div className="inquiry-form-row">
+              <div className="inquiry-form-group">
+                <label htmlFor="inquiry-domain">
+                  Course Domain
+                  <span>*</span>
+                </label>
+
+                <select
+                  id="inquiry-domain"
+                  value={selectedDomain}
+                  onChange={handleDomainChange}
+                  required
+                >
+                  <option value="">
+                    Select course domain
+                  </option>
+
+                  {domainsList.map((domain) => (
+                    <option
+                      key={domain}
+                      value={domain}
+                    >
+                      {domain}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="inquiry-form-group">
+                <label htmlFor="inquiry-course">
+                  Interested Course
+                  <span>*</span>
+                </label>
+
+                <select
+                  id="inquiry-course"
+                  name="course"
+                  value={formData.course}
+                  onChange={handleChange}
+                  disabled={!selectedDomain}
+                  required
+                >
+                  <option value="">
+                    {selectedDomain
+                      ? "Select a course"
+                      : "Select domain first"}
+                  </option>
+
+                  {availableCourses.map((course) => (
+                    <option
+                      key={course}
+                      value={course}
+                    >
+                      {course}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Message */}
+            <div className="inquiry-form-group inquiry-form-full">
+              <label htmlFor="inquiry-message">
+                Your Message
+                <span>*</span>
+              </label>
+
+              <div className="inquiry-textarea-wrapper">
+                <MessageSquareText size={19} />
+
+                <textarea
+                  id="inquiry-message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Tell us about your course or career requirements"
+                  rows={3}
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Submit */}
+            <button
+              type="submit"
+              className="inquiry-popup-submit"
+            >
+              <span>
+                Submit Inquiry On WhatsApp
+              </span>
+
+              <Send size={19} />
+            </button>
+
+            <p className="inquiry-popup-privacy">
+              By submitting this form, you agree to
+              receive course-related communication from
+              SkillServe Academy.
+            </p>
+          </form>
+        </section>
       </div>
     </div>
   );

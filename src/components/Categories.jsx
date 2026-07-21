@@ -1,6 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import api from "../utils/api";
 import "./Categories.css";
+
+const initialCategories = [
+  {
+    _id: "1",
+    title: "CNC-VMC & Manufacturing",
+    courses: 6,
+    image: "/Category/cnc-vmc.png",
+    link: "/courses/cnc-programming-course",
+  },
+  {
+    _id: "2",
+    title: "PLC Automation & IIOT",
+    courses: 2,
+    image: "/Category/PLC.png",
+    link: "/courses/plc-scada-course",
+  },
+  {
+    _id: "3",
+    title: "CAD-CAM Designing",
+    courses: 5,
+    image: "/Category/cad-cam.png",
+    link: "/courses/cad-cam-course",
+  },
+  {
+    _id: "4",
+    title: "Electric Vehicle",
+    courses: 3,
+    image: "/Category/electric.png",
+    link: "/courses/electric-vehicle-course",
+  },
+  {
+    _id: "5",
+    title: "Digital Marketing & AI",
+    courses: 2,
+    image: "/Category/digital.png",
+    link: "/courses/digital-marketing-course",
+  },
+  {
+    _id: "6",
+    title: "Electronics & Robotics",
+    courses: 3,
+    image: "/Category/Robotics.png",
+    link: "/courses/electronics-robotics-course",
+  },
+];
 
 const Categories = () => {
   const [formData, setFormData] = useState({
@@ -9,11 +55,43 @@ const Categories = () => {
     phone: "",
     course: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState(initialCategories);
 
-  const handleWhatsappSubmit = (e) => {
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const { data } = await api.get('/categories');
+        if (data && data.length > 0) {
+          setCategories(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch categories", error);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  const handleWhatsappSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    const msg = `Hello SkillServe,
+    try {
+      // 1. Save to MongoDB (Admin Dashboard)
+      await api.post("/inquiries", {
+        name: formData.name,
+        email: formData.email,
+        mobile: formData.phone,
+        course: formData.course,
+        source: "Course Request" // from Categories form
+      });
+
+      // 2. Fetch Contact Settings for dynamic WhatsApp Number
+      const { data } = await api.get('/contact-info');
+      const whatsappNumber = data.whatsappNumber || "919484794843";
+
+      // 3. Open WhatsApp
+      const msg = `Hello SkillServe,
 I want to apply for a course.
 
 Name: ${formData.name}
@@ -21,55 +99,18 @@ Email: ${formData.email}
 Phone: ${formData.phone}
 Course: ${formData.course}`;
 
-    const url = `https://wa.me/919484794843?text=${encodeURIComponent(msg)}`;
+      const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(msg)}`;
+      window.open(url, "_blank");
 
-    window.open(url, "_blank");
+      // Reset form
+      setFormData({ name: "", email: "", phone: "", course: "" });
+    } catch (error) {
+      console.error("Failed to submit inquiry", error);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
-
-  const categories = [
-    {
-      id: 1,
-      title: "CNC-VMC & Manufacturing",
-      courses: 6,
-      image: "/Category/cnc-vmc.png",
-      link: "/courses/cnc-programming-course",
-    },
-    {
-      id: 2,
-      title: "PLC Automation & IIOT",
-      courses: 2,
-      image: "/Category/PLC.png",
-      link: "/courses/plc-scada-course",
-    },
-    {
-      id: 3,
-      title: "CAD-CAM Designing",
-      courses: 5,
-      image: "/Category/cad-cam.png",
-      link: "/courses/cad-cam-course",
-    },
-    {
-      id: 4,
-      title: "Electric Vehicle",
-      courses: 3,
-      image: "/Category/electric.png",
-      link: "/courses/electric-vehicle-course",
-    },
-    {
-      id: 5,
-      title: "Digital Marketing & AI",
-      courses: 2,
-      image: "/Category/digital.png",
-      link: "/courses/digital-marketing-course",
-    },
-    {
-      id: 6,
-      title: "Electronics & Robotics",
-      courses: 3,
-      image: "/Category/Robotics.png",
-      link: "/courses/electronics-robotics-course",
-    },
-  ];
 
   return (
     <section className="categories-redesign">
@@ -80,7 +121,7 @@ Course: ${formData.course}`;
             {categories.map((cat) => (
               <Link
                 to={cat.link}
-                key={cat.id}
+                key={cat._id}
                 className="cat-redesign-card"
               >
                 {/* Left side content */}
@@ -176,8 +217,8 @@ Course: ${formData.course}`;
                 />
               </div>
 
-              <button type="submit" className="form-submit-btn">
-                Submit
+              <button type="submit" className="form-submit-btn" disabled={loading}>
+                {loading ? "Submitting..." : "Submit"}
               </button>
             </form>
 

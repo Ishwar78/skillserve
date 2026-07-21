@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Clock, MapPin, Star, CheckCircle, BookOpen, Award, ArrowLeft } from 'lucide-react';
 import { allCourses } from '../data/coursesData';
+import api from '../utils/api';
 import './CourseDetail.css';
 
 const renderStars = (rating) => {
@@ -19,14 +20,35 @@ const renderStars = (rating) => {
 const CourseDetail = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
+  const [course, setCourse] = useState(null);
+  const [loading, setLoading] = useState(true);
   
-  // Find course by ID (ensure type matching if necessary)
-  const course = allCourses.find(c => c.id.toString() === courseId);
-
-  // Scroll to top on load
+  // Scroll to top on load and fetch course
   useEffect(() => {
     window.scrollTo(0, 0);
+    const fetchCourseDetails = async () => {
+      try {
+        const { data } = await api.get(`/courses/${courseId}`);
+        setCourse(data);
+      } catch (error) {
+        console.error('Error fetching course details:', error);
+        // Fallback to static lookup
+        const staticCourse = allCourses.find(c => c.slug === courseId || c.id.toString() === courseId || c._id === courseId);
+        setCourse(staticCourse || null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCourseDetails();
   }, [courseId]);
+
+  if (loading) {
+    return (
+      <div className="container" style={{ padding: '100px 0', textAlign: 'center' }}>
+        <h2>Loading Course Details...</h2>
+      </div>
+    );
+  }
 
   if (!course) {
     return (

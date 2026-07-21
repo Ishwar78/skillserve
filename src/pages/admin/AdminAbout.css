@@ -1,0 +1,844 @@
+/* =========================================================
+   SKILLSERVE ADMIN ABOUT PAGE
+   Fully scoped: public About page styles will not be affected.
+========================================================= */
+
+.ssa-admin-about-page {
+  --ssa-about-navy-950: var(--admin-navy-950, #0d0b2b);
+  --ssa-about-navy-900: var(--admin-navy-900, #12123d);
+  --ssa-about-navy-800: var(--admin-navy-800, #1a1b4b);
+  --ssa-about-navy-700: var(--admin-navy-700, #292a63);
+  --ssa-about-yellow: var(--admin-yellow, #f2df00);
+  --ssa-about-orange: var(--admin-orange, #f26522);
+  --ssa-about-text: var(--admin-text, #171833);
+  --ssa-about-muted: var(--admin-muted, #6d7286);
+  --ssa-about-border: var(--admin-border, #e5e7f0);
+  --ssa-about-success: var(--admin-success, #159447);
+  --ssa-about-error: var(--admin-error, #e23b3b);
+
+  width: 100%;
+  min-width: 0;
+  font-family: "Inter", sans-serif;
+}
+
+.ssa-admin-about-page *,
+.ssa-admin-about-page *::before,
+.ssa-admin-about-page *::after {
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.ssa-admin-about-hero {
+  position: relative;
+  min-height: 180px;
+  margin-bottom: 22px;
+  padding: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+
+  overflow: hidden;
+  color: #ffffff;
+
+  background:
+    radial-gradient(
+      circle at 88% 8%,
+      rgba(242, 223, 0, 0.2),
+      transparent 30%
+    ),
+    linear-gradient(
+      130deg,
+      var(--ssa-about-navy-950),
+      var(--ssa-about-navy-800) 68%,
+      var(--ssa-about-navy-700)
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 23px;
+  box-shadow: 0 22px 50px rgba(18, 18, 61, 0.18);
+}
+
+.ssa-admin-about-hero::before,
+.ssa-admin-about-hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ssa-admin-about-hero::before {
+  top: -145px;
+  right: 150px;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.ssa-admin-about-hero::after {
+  right: -95px;
+  bottom: -130px;
+  width: 280px;
+  height: 280px;
+  background: rgba(242, 223, 0, 0.08);
+}
+
+.ssa-admin-about-hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 730px;
+}
+
+.ssa-admin-about-hero__eyebrow {
+  width: fit-content;
+  margin-bottom: 13px;
+  padding: 7px 12px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  color: var(--ssa-about-yellow);
+  background: rgba(242, 223, 0, 0.1);
+  border: 1px solid rgba(242, 223, 0, 0.23);
+  border-radius: 999px;
+
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+
+.ssa-admin-about-hero h1 {
+  margin: 0 0 10px;
+  color: #ffffff;
+  font-size: clamp(29px, 3vw, 38px);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.7px;
+}
+
+.ssa-admin-about-hero p {
+  max-width: 670px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.ssa-admin-about-hero__summary {
+  position: relative;
+  z-index: 2;
+  min-width: 215px;
+  padding: 17px;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  background: rgba(255, 255, 255, 0.085);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+}
+
+.ssa-admin-about-hero__summary-icon {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--ssa-about-navy-950);
+  background: var(--ssa-about-yellow);
+  border-radius: 14px;
+}
+
+.ssa-admin-about-hero__summary span {
+  display: block;
+  margin-bottom: 4px;
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.ssa-admin-about-hero__summary strong {
+  display: block;
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.ssa-admin-about-message {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 13px 14px 13px 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.ssa-admin-about-message--success {
+  color: #10723b;
+  background: #eaf9f0;
+  border: 1px solid #b5e8c8;
+}
+
+.ssa-admin-about-message--error {
+  color: #b62525;
+  background: #fff0f0;
+  border: 1px solid #ffc5c5;
+}
+
+.ssa-admin-about-message__content {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.ssa-admin-about-message__content svg {
+  flex-shrink: 0;
+}
+
+.ssa-admin-about-message button {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  flex-shrink: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: currentColor;
+  background: transparent;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.ssa-admin-about-message button:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.ssa-admin-about-loading {
+  min-height: 420px;
+  padding: 40px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid var(--ssa-about-border);
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(19, 19, 64, 0.08);
+}
+
+.ssa-admin-about-loading > svg {
+  margin-bottom: 16px;
+  color: var(--ssa-about-navy-800);
+}
+
+.ssa-admin-about-loading h2 {
+  margin: 0 0 7px;
+  color: var(--ssa-about-navy-800);
+  font-size: 19px;
+  font-weight: 900;
+}
+
+.ssa-admin-about-loading p {
+  margin: 0;
+  color: var(--ssa-about-muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   FORM AND CARDS
+========================================================= */
+
+.ssa-admin-about-form {
+  display: grid;
+  gap: 22px;
+}
+
+.ssa-admin-about-card {
+  position: relative;
+  min-width: 0;
+  padding: 26px;
+
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid var(--ssa-about-border);
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(19, 19, 64, 0.08);
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.ssa-admin-about-card:focus-within {
+  border-color: rgba(242, 223, 0, 0.78);
+  box-shadow: 0 20px 48px rgba(19, 19, 64, 0.11);
+}
+
+.ssa-admin-about-card--mission::before,
+.ssa-admin-about-card--vision::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 4px;
+}
+
+.ssa-admin-about-card--mission::before {
+  background: linear-gradient(
+    90deg,
+    var(--ssa-about-orange),
+    var(--ssa-about-yellow)
+  );
+}
+
+.ssa-admin-about-card--vision::before {
+  background: linear-gradient(
+    90deg,
+    #5454d8,
+    var(--ssa-about-yellow)
+  );
+}
+
+.ssa-admin-about-card__header {
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+
+  border-bottom: 1px solid var(--ssa-about-border);
+}
+
+.ssa-admin-about-card__heading {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+}
+
+.ssa-admin-about-card__number {
+  min-width: 39px;
+  height: 30px;
+  padding: 0 9px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--ssa-about-navy-950);
+  background: var(--ssa-about-yellow);
+  border-radius: 999px;
+
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.ssa-admin-about-card__icon {
+  width: 47px;
+  height: 47px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--ssa-about-navy-800);
+  background: rgba(242, 223, 0, 0.16);
+  border: 1px solid rgba(242, 223, 0, 0.34);
+  border-radius: 13px;
+}
+
+.ssa-admin-about-card__heading span {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--ssa-about-orange);
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+
+.ssa-admin-about-card__heading h2 {
+  margin: 0 0 4px;
+  color: var(--ssa-about-navy-800);
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.ssa-admin-about-card__heading p {
+  margin: 0;
+  color: var(--ssa-about-muted);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.ssa-admin-about-card__badge {
+  padding: 7px 11px;
+  flex-shrink: 0;
+
+  color: #3152c7;
+  background: #edf1ff;
+  border: 1px solid #d2dcff;
+  border-radius: 999px;
+
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.ssa-admin-about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 18px;
+}
+
+.ssa-admin-about-split-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+/* =========================================================
+   FIELDS
+========================================================= */
+
+.ssa-admin-about-field {
+  position: relative;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ssa-admin-about-field + .ssa-admin-about-field {
+  margin-top: 18px;
+}
+
+.ssa-admin-about-grid
+  .ssa-admin-about-field
+  + .ssa-admin-about-field {
+  margin-top: 0;
+}
+
+.ssa-admin-about-field label {
+  color: var(--ssa-about-text);
+  font-size: 12px;
+  font-weight: 780;
+  line-height: 1.4;
+}
+
+.ssa-admin-about-field label > span {
+  margin-left: 2px;
+  color: var(--ssa-about-error);
+}
+
+.ssa-admin-about-field input,
+.ssa-admin-about-field textarea {
+  width: 100%;
+  min-width: 0;
+
+  color: var(--ssa-about-text);
+  background: #ffffff;
+  border: 1.5px solid #dfe2eb;
+  border-radius: 11px;
+  outline: none;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+
+  transition:
+    background 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.ssa-admin-about-field input {
+  height: 50px;
+  padding: 0 14px;
+}
+
+.ssa-admin-about-field textarea {
+  min-height: 118px;
+  padding: 13px 14px 30px;
+  line-height: 1.65;
+  resize: vertical;
+}
+
+.ssa-admin-about-field input::placeholder,
+.ssa-admin-about-field textarea::placeholder {
+  color: #a1a5b4;
+}
+
+.ssa-admin-about-field input:hover,
+.ssa-admin-about-field textarea:hover {
+  border-color: #bdc1cd;
+}
+
+.ssa-admin-about-field input:focus,
+.ssa-admin-about-field textarea:focus {
+  background: #fffef3;
+  border-color: var(--ssa-about-yellow);
+  box-shadow: 0 0 0 4px rgba(242, 223, 0, 0.13);
+}
+
+.ssa-admin-about-field small {
+  color: var(--ssa-about-muted);
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.ssa-admin-about-character-count {
+  position: absolute;
+  right: 10px;
+  bottom: 9px;
+  padding: 3px 7px;
+
+  color: var(--ssa-about-muted);
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 5px;
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   QUILL EDITOR
+========================================================= */
+
+.ssa-admin-about-quill {
+  overflow: hidden;
+  background: #ffffff;
+  border: 1.5px solid #dfe2eb;
+  border-radius: 12px;
+
+  transition:
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.ssa-admin-about-quill:focus-within {
+  border-color: var(--ssa-about-yellow);
+  box-shadow: 0 0 0 4px rgba(242, 223, 0, 0.13);
+}
+
+.ssa-admin-about-page
+  .ssa-admin-about-quill
+  .ql-toolbar.ql-snow {
+  padding: 11px;
+  background: linear-gradient(135deg, #f8f8fc, #ffffff);
+  border: none;
+  border-bottom: 1px solid var(--ssa-about-border);
+}
+
+.ssa-admin-about-page
+  .ssa-admin-about-quill
+  .ql-container.ql-snow {
+  min-height: 300px;
+
+  color: var(--ssa-about-text);
+  background: #ffffff;
+  border: none;
+
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+}
+
+.ssa-admin-about-page
+  .ssa-admin-about-quill
+  .ql-editor {
+  min-height: 300px;
+  max-height: 450px;
+  padding: 20px;
+
+  line-height: 1.75;
+  overflow-y: auto;
+}
+
+.ssa-admin-about-page
+  .ssa-admin-about-quill
+  .ql-editor.ql-blank::before {
+  left: 20px;
+  color: #9da1af;
+  font-style: normal;
+}
+
+.ssa-admin-about-page
+  .ssa-admin-about-quill
+  .ql-toolbar button:hover,
+.ssa-admin-about-page
+  .ssa-admin-about-quill
+  .ql-toolbar button.ql-active {
+  color: var(--ssa-about-orange);
+}
+
+.ssa-admin-about-page
+  .ssa-admin-about-quill
+  .ql-toolbar button:hover .ql-stroke,
+.ssa-admin-about-page
+  .ssa-admin-about-quill
+  .ql-toolbar button.ql-active .ql-stroke {
+  stroke: var(--ssa-about-orange);
+}
+
+.ssa-admin-about-page
+  .ssa-admin-about-quill
+  .ql-toolbar button:hover .ql-fill,
+.ssa-admin-about-page
+  .ssa-admin-about-quill
+  .ql-toolbar button.ql-active .ql-fill {
+  fill: var(--ssa-about-orange);
+}
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.ssa-admin-about-actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 20;
+
+  padding: 16px 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--ssa-about-border);
+  border-radius: 16px;
+  box-shadow: 0 14px 35px rgba(18, 18, 61, 0.1);
+  backdrop-filter: blur(14px);
+}
+
+.ssa-admin-about-actions__note {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  color: var(--ssa-about-muted);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.ssa-admin-about-actions__note svg {
+  flex-shrink: 0;
+  color: var(--ssa-about-orange);
+}
+
+.ssa-admin-about-save-button {
+  min-height: 49px;
+  padding: 11px 24px;
+  flex-shrink: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  color: #ffffff;
+  background:
+    linear-gradient(
+      135deg,
+      var(--ssa-about-navy-950),
+      var(--ssa-about-navy-700) 68%,
+      #c9b900
+    );
+
+  border: none;
+  border-radius: 11px;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 850;
+  cursor: pointer;
+
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.ssa-admin-about-save-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(26, 27, 75, 0.22);
+}
+
+.ssa-admin-about-save-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
+  transform: none;
+}
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+.ssa-admin-about-spin {
+  animation: ssa-admin-about-spin 0.85s linear infinite;
+}
+
+@keyframes ssa-admin-about-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1050px) {
+  .ssa-admin-about-grid,
+  .ssa-admin-about-split-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ssa-admin-about-grid
+    .ssa-admin-about-field
+    + .ssa-admin-about-field {
+    margin-top: 18px;
+  }
+}
+
+@media (max-width: 760px) {
+  .ssa-admin-about-hero {
+    min-height: auto;
+    padding: 26px 22px;
+
+    align-items: flex-start;
+    flex-direction: column;
+
+    border-radius: 19px;
+  }
+
+  .ssa-admin-about-hero__summary {
+    width: 100%;
+  }
+
+  .ssa-admin-about-card {
+    padding: 20px;
+  }
+
+  .ssa-admin-about-card__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .ssa-admin-about-card__badge {
+    align-self: flex-start;
+  }
+
+  .ssa-admin-about-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .ssa-admin-about-save-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .ssa-admin-about-hero {
+    padding: 23px 18px;
+  }
+
+  .ssa-admin-about-card {
+    padding: 15px;
+    border-radius: 16px;
+  }
+
+  .ssa-admin-about-card__heading {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .ssa-admin-about-card__number {
+    grid-column: 1 / -1;
+  }
+
+  .ssa-admin-about-card__icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .ssa-admin-about-page
+    .ssa-admin-about-quill
+    .ql-toolbar.ql-snow {
+    padding: 7px;
+  }
+
+  .ssa-admin-about-page
+    .ssa-admin-about-quill
+    .ql-container.ql-snow,
+  .ssa-admin-about-page
+    .ssa-admin-about-quill
+    .ql-editor {
+    min-height: 250px;
+  }
+
+  .ssa-admin-about-actions {
+    padding: 14px;
+  }
+
+  .ssa-admin-about-actions__note {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 380px) {
+  .ssa-admin-about-card {
+    padding: 13px;
+  }
+
+  .ssa-admin-about-card__header {
+    margin-bottom: 19px;
+    padding-bottom: 16px;
+  }
+}

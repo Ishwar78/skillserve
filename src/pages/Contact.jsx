@@ -1,53 +1,151 @@
-import React, { useState } from 'react';
-import { MapPin, Phone, Mail, Globe } from 'lucide-react';
-import { stateDistrictMap, domainCourseMap, domainsList } from '../data/locations';
-import './Contact.css';
+import React, { useEffect, useState } from "react";
+
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Clock3,
+  User,
+  Users,
+  Smartphone,
+  AtSign,
+  MapPinned,
+  GraduationCap,
+  MessageSquareText,
+  Send,
+  ChevronDown,
+  CheckCircle2,
+} from "lucide-react";
+
+import {
+  stateDistrictMap,
+  domainCourseMap,
+  domainsList,
+} from "../data/locations";
+
+import api from "../utils/api";
+import "./Contact.css";
 
 const Contact = () => {
-  const [selectedState, setSelectedState] = useState('');
-  const [districts, setDistricts] = useState([]);
-
-  const [selectedDomain, setSelectedDomain] = useState('');
-  const [availableCourses, setAvailableCourses] = useState([]);
-  const [formData, setFormData] = useState({
-    name: '',
-    fatherName: '',
-    mobile: '',
-    email: '',
-    district: '',
-    course: '',
-    message: ''
+  const [contactInfo, setContactInfo] = useState({
+    address:
+      "Plot No, 98-C, Udhyog Vihar Phase VII, Sector 35, Gurugram, Haryana 122004",
+    phone: "9484794843",
+    email: "info@skillserve.in",
+    hours: "Monday - Saturday: 9:00 AM - 6:00 PM",
   });
 
-  const handleStateChange = (e) => {
-    const stateName = e.target.value;
+  const [selectedState, setSelectedState] = useState("");
+  const [districts, setDistricts] = useState([]);
+
+  const [selectedDomain, setSelectedDomain] = useState("");
+  const [availableCourses, setAvailableCourses] = useState([]);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    fatherName: "",
+    mobile: "",
+    email: "",
+    district: "",
+    course: "",
+    message: "",
+  });
+
+  useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const { data } = await api.get("/contact-info");
+
+        if (data) {
+          setContactInfo((previous) => ({
+            ...previous,
+            ...data,
+          }));
+        }
+      } catch (error) {
+        console.error(
+          "Failed to fetch contact details",
+          error
+        );
+      }
+    };
+
+    fetchContactInfo();
+  }, []);
+
+  const handleStateChange = (event) => {
+    const stateName = event.target.value;
+
     setSelectedState(stateName);
-    if (stateName && stateDistrictMap[stateName]) {
+
+    // State change hone par old district reset hoga
+    setFormData((previous) => ({
+      ...previous,
+      district: "",
+    }));
+
+    if (
+      stateName &&
+      Array.isArray(stateDistrictMap[stateName])
+    ) {
       setDistricts(stateDistrictMap[stateName]);
     } else {
       setDistricts([]);
     }
   };
 
-  const handleDomainChange = (e) => {
-    const domain = e.target.value;
+  const handleDomainChange = (event) => {
+    const domain = event.target.value;
+
     setSelectedDomain(domain);
-    setFormData({ ...formData, course: '' }); // reset course selection
-    if (domain && domainCourseMap[domain]) {
+
+    // Domain change hone par old course reset hoga
+    setFormData((previous) => ({
+      ...previous,
+      course: "",
+    }));
+
+    if (
+      domain &&
+      Array.isArray(domainCourseMap[domain])
+    ) {
       setAvailableCourses(domainCourseMap[domain]);
     } else {
       setAvailableCourses([]);
     }
   };
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormData((previous) => ({
+      ...previous,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, fatherName, mobile, email, district, course, message } = formData;
     
+    // Save to database first
+    try {
+      await api.post('/inquiries', {
+        name,
+        fatherName,
+        mobile,
+        email,
+        state: selectedState,
+        district,
+        domain: selectedDomain,
+        course,
+        message,
+        source: 'Contact Page'
+      });
+    } catch (err) {
+      console.error('Failed to save inquiry to database', err);
+    }
+
     const text = `*New Inquiry from Website*
 Name: ${name}
 Father's Name: ${fatherName}
@@ -60,128 +158,462 @@ Course: ${course}
 Message: ${message}`;
 
     const encodedText = encodeURIComponent(text);
-    window.open(`https://wa.me/919484794843?text=${encodedText}`, '_blank');
+    const rawPhone = contactInfo.phone.replace(/\D/g, '');
+    const waNumber = rawPhone.length === 10 ? `91${rawPhone}` : rawPhone;
+    window.open(`https://wa.me/${waNumber}?text=${encodedText}`, '_blank', 'noopener,noreferrer');
   };
 
   return (
-    <div className="contact-page">
+    <main className="contact-page">
       {/* Hero Section */}
-      <div className="contact-hero">
-        <div className="container">
-          <h1 className="contact-hero-title">Contact SkillServe Academy</h1>
-          <p className="contact-hero-sub">— Book a Free Course Demo in Gurugram —</p>
-        </div>
-      </div>
+      <section className="contact-hero">
+        <div className="contact-hero-shape contact-hero-shape-one" />
+        <div className="contact-hero-shape contact-hero-shape-two" />
 
-      <div className="container contact-main-container">
-        <div className="contact-grid">
-          {/* Left Column: Form */}
-          <div className="contact-form-col">
-            <span className="contact-subtitle">APPLY FOR TRAINING</span>
-            <h2 className="contact-form-title">Fill The Form Below To Apply For Our Courses</h2>
-            
-            <form className="contact-form" onSubmit={handleSubmit}>
-              <div className="form-row">
-                <div className="form-group">
-                  <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Your Full Name *" required />
-                </div>
-                <div className="form-group">
-                  <input type="text" name="fatherName" value={formData.fatherName} onChange={handleChange} placeholder="Father's Name *" required />
-                </div>
-              </div>
+        <div className="container contact-hero-container">
+          <span className="contact-hero-badge">
+            <GraduationCap size={17} />
+            Admissions &amp; Course Guidance
+          </span>
 
-              <div className="form-row">
-                <div className="form-group">
-                  <input type="tel" name="mobile" value={formData.mobile} onChange={handleChange} placeholder="Mobile Number (10 digits)" pattern="[0-9]{10}" required />
-                </div>
-                <div className="form-group">
-                  <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Your Email *" required />
-                </div>
-              </div>
+          <h1 className="contact-hero-title">
+            Contact SkillServe
+            <span> Academy</span>
+          </h1>
 
-              <div className="form-row">
-                <div className="form-group">
-                  <select value={selectedState} onChange={handleStateChange} required>
-                    <option value="">Select State *</option>
-                    {Object.keys(stateDistrictMap).sort().map(state => (
-                      <option key={state} value={state}>{state}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="form-group">
-                  <select name="district" value={formData.district} onChange={handleChange} required disabled={!selectedState}>
-                    <option value="">Select District *</option>
-                    {districts.map(district => (
-                      <option key={district} value={district}>{district}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
+          <p className="contact-hero-sub">
+            Book your free course counselling session and
+            start building industry-ready skills.
+          </p>
 
-              <div className="form-row">
-                <div className="form-group">
-                  <select value={selectedDomain} onChange={handleDomainChange} required>
-                    <option value="">Select Domain *</option>
-                    {domainsList.map(domain => (
-                      <option key={domain} value={domain}>{domain}</option>
-                    ))}
-                  </select>
-                </div>
-                <div className="form-group">
-                  <select name="course" value={formData.course} onChange={handleChange} required disabled={!selectedDomain}>
-                    <option value="">Select a Course *</option>
-                    {availableCourses.map(course => (
-                      <option key={course} value={course}>{course}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
+          <div className="contact-hero-points">
+            <span>
+              <CheckCircle2 size={16} />
+              Free counselling
+            </span>
 
-              <div className="form-group full-width">
-                <textarea name="message" value={formData.message} onChange={handleChange} placeholder="Your Message *" rows="4" required></textarea>
-              </div>
+            <span>
+              <CheckCircle2 size={16} />
+              Expert guidance
+            </span>
 
-              <button type="submit" className="contact-submit-btn">Submit Application</button>
-            </form>
-          </div>
-
-          {/* Right Column: Info Cards */}
-          <div className="contact-info-col">
-            <div className="info-card">
-              <div className="info-icon text-green"><MapPin size={28} /></div>
-              <div className="info-text">
-                <h4>Gurugram Center</h4>
-                <p>Plot No, 98-C, Udhyog Vihar Phase VII, Sector 35, Gurugram, Haryana 122004</p>
-              </div>
-            </div>
-
-            <div className="info-card">
-              <div className="info-icon text-blue"><Phone size={28} /></div>
-              <div className="info-text">
-                <h4>Phone number</h4>
-                <p>9484794843</p>
-              </div>
-            </div>
-
-            <div className="info-card">
-              <div className="info-icon text-orange"><Mail size={28} /></div>
-              <div className="info-text">
-                <h4>Send email</h4>
-                <p>info@skillserve.in</p>
-              </div>
-            </div>
-
-            <div className="info-card">
-              <div className="info-icon text-orange"><Globe size={28} /></div>
-              <div className="info-text">
-                <h4>Training Hours</h4>
-                <p>Monday - Saturday: 9:00 AM - 6:00 PM</p>
-              </div>
-            </div>
+            <span>
+              <CheckCircle2 size={16} />
+              Quick WhatsApp response
+            </span>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+
+      <section className="contact-content-section">
+        <div className="container contact-main-container">
+          <div className="contact-grid">
+            {/* Left Side Form */}
+            <div className="contact-form-col">
+              <div className="contact-form-heading">
+                <span className="contact-subtitle">
+                  APPLY FOR TRAINING
+                </span>
+
+                <h2 className="contact-form-title">
+                  Take The First Step Towards Your Career
+                </h2>
+
+                <p className="contact-form-description">
+                  Fill in your details below. Our admission
+                  expert will connect with you and provide
+                  complete course guidance.
+                </p>
+              </div>
+
+              <form
+                className="contact-form"
+                onSubmit={handleSubmit}
+              >
+                {/* Name Row */}
+                <div className="contact-form-row">
+                  <div className="contact-form-group">
+                    <label htmlFor="contact-name">
+                      Your Full Name
+                      <span>*</span>
+                    </label>
+
+                    <div className="contact-input-wrapper">
+                      <User size={18} />
+
+                      <input
+                        id="contact-name"
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Enter your full name"
+                        autoComplete="name"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="contact-form-group">
+                    <label htmlFor="contact-father-name">
+                      Father&apos;s Name
+                      <span>*</span>
+                    </label>
+
+                    <div className="contact-input-wrapper">
+                      <Users size={18} />
+
+                      <input
+                        id="contact-father-name"
+                        type="text"
+                        name="fatherName"
+                        value={formData.fatherName}
+                        onChange={handleChange}
+                        placeholder="Enter father's name"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Contact Row */}
+                <div className="contact-form-row">
+                  <div className="contact-form-group">
+                    <label htmlFor="contact-mobile">
+                      Mobile Number
+                      <span>*</span>
+                    </label>
+
+                    <div className="contact-input-wrapper">
+                      <Smartphone size={18} />
+
+                      <input
+                        id="contact-mobile"
+                        type="tel"
+                        name="mobile"
+                        value={formData.mobile}
+                        onChange={handleChange}
+                        placeholder="Enter 10-digit number"
+                        pattern="[0-9]{10}"
+                        inputMode="numeric"
+                        maxLength={10}
+                        autoComplete="tel"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="contact-form-group">
+                    <label htmlFor="contact-email">
+                      Email Address
+                      <span>*</span>
+                    </label>
+
+                    <div className="contact-input-wrapper">
+                      <AtSign size={18} />
+
+                      <input
+                        id="contact-email"
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="Enter your email"
+                        autoComplete="email"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Location Row */}
+                <div className="contact-form-row">
+                  <div className="contact-form-group">
+                    <label htmlFor="contact-state">
+                      Select State
+                      <span>*</span>
+                    </label>
+
+                    <div className="contact-input-wrapper contact-select-wrapper">
+                      <MapPinned size={18} />
+
+                      <select
+                        id="contact-state"
+                        value={selectedState}
+                        onChange={handleStateChange}
+                        required
+                      >
+                        <option value="">
+                          Choose your state
+                        </option>
+
+                        {Object.keys(stateDistrictMap)
+                          .sort()
+                          .map((state) => (
+                            <option
+                              key={state}
+                              value={state}
+                            >
+                              {state}
+                            </option>
+                          ))}
+                      </select>
+
+                      <ChevronDown
+                        size={17}
+                        className="contact-select-arrow"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="contact-form-group">
+                    <label htmlFor="contact-district">
+                      Select District
+                      <span>*</span>
+                    </label>
+
+                    <div className="contact-input-wrapper contact-select-wrapper">
+                      <MapPin size={18} />
+
+                      <select
+                        id="contact-district"
+                        name="district"
+                        value={formData.district}
+                        onChange={handleChange}
+                        required
+                        disabled={!selectedState}
+                      >
+                        <option value="">
+                          {selectedState
+                            ? "Choose your district"
+                            : "Select state first"}
+                        </option>
+
+                        {districts.map((district) => (
+                          <option
+                            key={district}
+                            value={district}
+                          >
+                            {district}
+                          </option>
+                        ))}
+                      </select>
+
+                      <ChevronDown
+                        size={17}
+                        className="contact-select-arrow"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Course Row */}
+                <div className="contact-form-row">
+                  <div className="contact-form-group">
+                    <label htmlFor="contact-domain">
+                      Select Domain
+                      <span>*</span>
+                    </label>
+
+                    <div className="contact-input-wrapper contact-select-wrapper">
+                      <GraduationCap size={18} />
+
+                      <select
+                        id="contact-domain"
+                        value={selectedDomain}
+                        onChange={handleDomainChange}
+                        required
+                      >
+                        <option value="">
+                          Choose training domain
+                        </option>
+
+                        {domainsList.map((domain) => (
+                          <option
+                            key={domain}
+                            value={domain}
+                          >
+                            {domain}
+                          </option>
+                        ))}
+                      </select>
+
+                      <ChevronDown
+                        size={17}
+                        className="contact-select-arrow"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="contact-form-group">
+                    <label htmlFor="contact-course">
+                      Select Course
+                      <span>*</span>
+                    </label>
+
+                    <div className="contact-input-wrapper contact-select-wrapper">
+                      <GraduationCap size={18} />
+
+                      <select
+                        id="contact-course"
+                        name="course"
+                        value={formData.course}
+                        onChange={handleChange}
+                        required
+                        disabled={!selectedDomain}
+                      >
+                        <option value="">
+                          {selectedDomain
+                            ? "Choose your course"
+                            : "Select domain first"}
+                        </option>
+
+                        {availableCourses.map((course) => (
+                          <option
+                            key={course}
+                            value={course}
+                          >
+                            {course}
+                          </option>
+                        ))}
+                      </select>
+
+                      <ChevronDown
+                        size={17}
+                        className="contact-select-arrow"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Message */}
+                <div className="contact-form-group contact-full-width">
+                  <label htmlFor="contact-message">
+                    Your Message
+                    <span>*</span>
+                  </label>
+
+                  <div className="contact-input-wrapper contact-textarea-wrapper">
+                    <MessageSquareText size={18} />
+
+                    <textarea
+                      id="contact-message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Write your question or course requirement..."
+                      rows={5}
+                      required
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  className="contact-submit-btn"
+                >
+                  <Send size={19} />
+                  Submit Application
+                </button>
+
+                <p className="contact-form-note">
+                  By submitting this form, you agree to be
+                  contacted regarding course admissions and
+                  counselling.
+                </p>
+              </form>
+            </div>
+
+            {/* Right Side Contact Information */}
+            <aside className="contact-info-col">
+              <div className="contact-info-heading">
+                <span>GET IN TOUCH</span>
+
+                <h3>We&apos;re Here To Help You</h3>
+
+                <p>
+                  Contact our admission team for course,
+                  training and career-related assistance.
+                </p>
+              </div>
+
+              <div className="contact-info-list">
+                <article className="contact-info-card">
+                  <div className="contact-info-icon">
+                    <MapPin size={24} />
+                  </div>
+
+                  <div className="contact-info-text">
+                    <span>Visit Our Center</span>
+                    <h4>Gurugram Center</h4>
+                    <p>{contactInfo.address}</p>
+                  </div>
+                </article>
+
+                <a
+                  href={`tel:${contactInfo.phone}`}
+                  className="contact-info-card"
+                >
+                  <div className="contact-info-icon">
+                    <Phone size={24} />
+                  </div>
+
+                  <div className="contact-info-text">
+                    <span>Call For Assistance</span>
+                    <h4>Phone Number</h4>
+                    <p>{contactInfo.phone}</p>
+                  </div>
+                </a>
+
+                <a
+                  href={`mailto:${contactInfo.email}`}
+                  className="contact-info-card"
+                >
+                  <div className="contact-info-icon">
+                    <Mail size={24} />
+                  </div>
+
+                  <div className="contact-info-text">
+                    <span>Email Support</span>
+                    <h4>Send An Email</h4>
+                    <p>{contactInfo.email}</p>
+                  </div>
+                </a>
+
+                <article className="contact-info-card">
+                  <div className="contact-info-icon">
+                    <Clock3 size={24} />
+                  </div>
+
+                  <div className="contact-info-text">
+                    <span>Working Schedule</span>
+                    <h4>Training Hours</h4>
+                    <p>{contactInfo.hours}</p>
+                  </div>
+                </article>
+              </div>
+
+              <div className="contact-help-box">
+                <div className="contact-help-icon">
+                  <Phone size={22} />
+                </div>
+
+                <div>
+                  <span>Need immediate guidance?</span>
+                  <strong>
+                    Speak directly with our admission expert.
+                  </strong>
+                </div>
+
+                <a href={`tel:${contactInfo.phone}`}>
+                  Call Now
+                </a>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 };
 

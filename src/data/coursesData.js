@@ -108,8 +108,20 @@ export const coursesData = {
   ]
 };
 
+const slugify = (text) => {
+  if (!text) return '';
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+};
+
 export const allCourses = Object.values(coursesData).flat().map(course => ({
   ...course,
+  slug: slugify(course.title),
   overview: `This comprehensive ${course.title} program is designed to provide you with the most in-demand skills required by top manufacturing, automotive, and tech companies. You will learn through hands-on practical training with industry experts in our state-of-the-art Gurugram labs, preparing you directly for the workforce.`,
   features: [
     "100% Placement Assistance",

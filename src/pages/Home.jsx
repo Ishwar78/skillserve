@@ -7,17 +7,22 @@ import FeaturedCourses from '../components/FeaturedCourses';
 import AboutUs from '../components/AboutUs';
 import SuccessStories from '../components/SuccessStories';
 import StartToSuccess from '../components/StartToSuccess';
+import WhyChooseSkillServe from "../components/WhyChooseSkillServe";
+
 
 const Home = () => {
   return (
     <main>
       <Hero />
       <Partners />
+      <SuccessStories />
+      <WhyChooseSkillServe />
+      <FeaturedCourses />
       <GuidanceSection />
       <Categories />
-      <FeaturedCourses />
+      
       <AboutUs />
-      <SuccessStories />
+      
       <StartToSuccess />
     </main>
   );

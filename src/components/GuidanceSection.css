@@ -1,223 +1,1022 @@
+/* =========================================
+   GUIDANCE SECTION VARIABLES
+========================================= */
+
 .guidance-section {
-  padding: 30px 0;
-  background-color: #f9fafb;
+  --guidance-navy-950: #0d0b2b;
+  --guidance-navy-900: #12123d;
+  --guidance-navy-800: #1a1b4b;
+  --guidance-navy-700: #2a2b67;
+
+  --guidance-yellow: #f2df00;
+  --guidance-yellow-light: #fff676;
+  --guidance-orange: #f26522;
+
+  --guidance-text: #18192f;
+  --guidance-muted: #666c7f;
+  --guidance-border: #e3e5ed;
+  --guidance-white: #ffffff;
+
+  position: relative;
+  width: 100%;
+  padding: 75px 0;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 0% 0%,
+      rgba(242, 223, 0, 0.12),
+      transparent 26%
+    ),
+    radial-gradient(
+      circle at 100% 100%,
+      rgba(42, 43, 103, 0.08),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      #f8f9ff 0%,
+      #ffffff 100%
+    );
 }
 
-.guidance-section .container {
-  width: min(100% - 32px, 1565px);
+.guidance-section *,
+.guidance-section *::before,
+.guidance-section *::after {
+  box-sizing: border-box;
+}
+
+/* Animated top line */
+
+.guidance-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+
+  height: 4px;
+
+  background: linear-gradient(
+    90deg,
+    var(--guidance-navy-800),
+    var(--guidance-yellow),
+    var(--guidance-orange),
+    var(--guidance-yellow),
+    var(--guidance-navy-800)
+  );
+
+  background-size: 250% 100%;
+  animation: guidance-gradient-move 9s linear infinite;
+}
+
+@keyframes guidance-gradient-move {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 250% 0;
+  }
+}
+
+/* Full-width responsive container */
+
+.guidance-container {
+  position: relative;
+  z-index: 2;
+
+  width: min(100% - 40px, 1580px);
   margin: 0 auto;
 }
 
+/* Background decoration */
+
+.guidance-decoration {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.guidance-decoration-one {
+  top: -170px;
+  right: -120px;
+
+  width: 390px;
+  height: 390px;
+
+  border: 65px solid rgba(26, 27, 75, 0.03);
+}
+
+.guidance-decoration-two {
+  bottom: -180px;
+  left: -130px;
+
+  width: 350px;
+  height: 350px;
+
+  background: rgba(242, 223, 0, 0.05);
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
 .guidance-header {
+  max-width: 840px;
+  margin: 0 auto 45px;
+
   text-align: center;
-  margin-bottom: 60px;
+}
+
+.guidance-header-badge {
+  width: fit-content;
+  margin: 0 auto 14px;
+  padding: 8px 13px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  color: var(--guidance-navy-800);
+  background: rgba(242, 223, 0, 0.17);
+  border: 1px solid rgba(242, 223, 0, 0.42);
+  border-radius: 999px;
+
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
 }
 
 .guidance-header h2 {
   margin: 0 0 15px;
-  font-size: 32px;
-  font-weight: 800;
-  color: #111827;
-  letter-spacing: -0.5px;
+
+  color: var(--guidance-navy-800);
+  font-size: clamp(34px, 3.7vw, 51px);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -1.3px;
+
+  text-wrap: balance;
+}
+
+.guidance-header h2 strong {
+  color: var(--guidance-orange);
 }
 
 .guidance-header p {
-  max-width: 650px;
+  max-width: 730px;
   margin: 0 auto;
+
+  color: var(--guidance-muted);
   font-size: 16px;
   font-weight: 500;
-  line-height: 1.6;
-  color: #101112;
+  line-height: 1.75;
+
+  text-wrap: balance;
 }
+
+/* =========================================
+   CARD GRID
+========================================= */
 
 .guidance-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
-  margin-bottom: 50px;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 22px;
+  margin-bottom: 38px;
 }
 
-.guidance-card {
-  min-height: 198px;
-  padding: 24px 20px 24px 30px;
+/* =========================================
+   GUIDANCE CARD
+========================================= */
 
-  display: flex;
+.guidance-card {
+  position: relative;
+
+  min-width: 0;
+  min-height: 235px;
+  padding: 27px 20px 24px 26px;
+
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    125px;
+
   align-items: center;
-  justify-content: space-between;
-  gap: 15px;
+  gap: 16px;
 
   overflow: hidden;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--guidance-border);
+  border-radius: 19px;
+
+  box-shadow:
+    0 12px 34px rgba(18, 18, 61, 0.065);
 
   transition:
     transform 0.3s ease,
-    box-shadow 0.3s ease,
-    border-color 0.3s ease;
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.guidance-card::before {
+  content: "";
+  position: absolute;
+  top: -80px;
+  right: -80px;
+
+  width: 175px;
+  height: 175px;
+
+  background: rgba(242, 223, 0, 0.07);
+  border-radius: 50%;
+
+  transition:
+    transform 0.35s ease,
+    background 0.35s ease;
 }
 
 .guidance-card:hover {
-  transform: translateY(-5px);
-  border-color: #f26522;
-  box-shadow: 0 10px 20px rgba(242, 101, 34, 0.1);
+  border-color: rgba(242, 223, 0, 0.9);
+
+  transform: translateY(-8px);
+
+  box-shadow:
+    0 23px 48px rgba(18, 18, 61, 0.13);
 }
 
+.guidance-card:hover::before {
+  background: rgba(242, 223, 0, 0.12);
+  transform: scale(1.12);
+}
+
+/* Step number */
+
+.guidance-card-number {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  z-index: 3;
+
+  color: rgba(26, 27, 75, 0.11);
+  font-size: 38px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+/* Card content */
+
 .guidance-card-content {
-  flex: 1;
+  position: relative;
+  z-index: 2;
+
   min-width: 0;
+}
+
+.guidance-card-check {
+  width: fit-content;
+  margin-bottom: 12px;
+  padding: 6px 9px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  color: var(--guidance-navy-800);
+  background: rgba(242, 223, 0, 0.14);
+  border-radius: 999px;
+
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.guidance-card-check svg {
+  color: var(--guidance-orange);
 }
 
 .guidance-card-content h3 {
   margin: 0 0 10px;
+
+  color: var(--guidance-navy-800);
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 900;
   line-height: 1.3;
-  color: #1f2937;
+  letter-spacing: -0.3px;
+
+  transition: color 0.25s ease;
+}
+
+.guidance-card:hover
+  .guidance-card-content h3 {
+  color: var(--guidance-orange);
 }
 
 .guidance-card-content p {
   margin: 0;
-  font-size: 15px;
+
+  color: var(--guidance-muted);
+  font-size: 13px;
   font-weight: 500;
-  line-height: 1.6;
-  color: #090909;
+  line-height: 1.7;
 }
 
-/* Right side image container */
+/* =========================================
+   CARD IMAGE
+========================================= */
+
 .guidance-card-image-box {
+  position: relative;
+  z-index: 2;
+
   width: 125px;
   height: 145px;
-  flex: 0 0 125px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   overflow: hidden;
-  border-radius: 12px;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(242, 223, 0, 0.18),
+      rgba(242, 223, 0, 0.035) 65%,
+      transparent 66%
+    );
+
+  border-radius: 16px;
 }
 
-/* Right side image */
+.guidance-image-glow {
+  position: absolute;
+
+  width: 95px;
+  height: 95px;
+
+  background: rgba(242, 223, 0, 0.14);
+  border-radius: 50%;
+  filter: blur(2px);
+
+  transition:
+    transform 0.35s ease,
+    background 0.35s ease;
+}
+
 .guidance-card-image {
+  position: relative;
+  z-index: 2;
+
   display: block;
+
   width: 100%;
   height: 100%;
+  padding: 5px;
+
   object-fit: contain;
   object-position: center;
+
+  transition:
+    transform 0.35s ease,
+    filter 0.35s ease;
+}
+
+.guidance-card:hover
+  .guidance-card-image {
+  transform: scale(1.08) translateY(-3px);
+}
+
+.guidance-card:hover
+  .guidance-image-glow {
+  background: rgba(242, 223, 0, 0.23);
+  transform: scale(1.15);
+}
+
+/* Card bottom line */
+
+.guidance-card-bottom-line {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  height: 4px;
+
+  background: linear-gradient(
+    90deg,
+    var(--guidance-navy-800),
+    var(--guidance-yellow),
+    var(--guidance-orange)
+  );
+
+  transform: scaleX(0);
+  transform-origin: left;
 
   transition: transform 0.3s ease;
 }
 
-.guidance-card:hover .guidance-card-image {
-  transform: scale(1.05);
+.guidance-card:hover
+  .guidance-card-bottom-line {
+  transform: scaleX(1);
 }
+
+/* =========================================
+   BOTTOM CTA
+========================================= */
+
+.guidance-cta {
+  position: relative;
+  padding: 28px 31px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(242, 223, 0, 0.18),
+      transparent 32%
+    ),
+    linear-gradient(
+      135deg,
+      var(--guidance-navy-950),
+      var(--guidance-navy-800)
+    );
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 20px 45px rgba(13, 11, 43, 0.18);
+}
+
+.guidance-cta::after {
+  content: "";
+  position: absolute;
+  right: -65px;
+  bottom: -85px;
+
+  width: 210px;
+  height: 210px;
+
+  border: 40px solid
+    rgba(255, 255, 255, 0.035);
+  border-radius: 50%;
+}
+
+.guidance-cta-content {
+  position: relative;
+  z-index: 2;
+
+  max-width: 730px;
+}
+
+.guidance-cta-content > span {
+  display: block;
+  margin-bottom: 6px;
+
+  color: var(--guidance-yellow);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.guidance-cta-content h3 {
+  margin: 0 0 7px;
+
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.guidance-cta-content p {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.57);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.65;
+}
+
+/* =========================================
+   ACTION BUTTONS
+========================================= */
 
 .guidance-actions {
+  position: relative;
+  z-index: 2;
+
+  min-width: 245px;
+  flex-shrink: 0;
+
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.guidance-action-link {
+.guidance-button {
+  width: 100%;
+  min-height: 49px;
+  padding: 12px 18px;
+
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  border-radius: 10px;
+
+  font-size: 12px;
+  font-weight: 850;
+  text-align: center;
   text-decoration: none;
-}
 
-.btn-start {
-  padding: 12px 28px;
-  color: #ffffff;
-  background: linear-gradient(135deg, #2a1ad4 0%, #f2f222 100%);
-  border: none;
-  border-radius: 6px;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+    color 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
-.btn-start:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(42, 26, 212, 0.2);
+.guidance-button-primary {
+  color: var(--guidance-navy-950);
+
+  background: linear-gradient(
+    135deg,
+    var(--guidance-yellow),
+    var(--guidance-yellow-light)
+  );
+
+  box-shadow:
+    0 12px 24px
+    rgba(242, 223, 0, 0.16);
 }
 
-.btn-expert {
-  padding: 12px 28px;
-  color: #1a1b4b;
-  background: transparent;
-  border: 1px solid #1a1b4b;
-  border-radius: 6px;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  transition:
-    background 0.3s ease,
-    color 0.3s ease,
-    transform 0.3s ease;
+.guidance-button-primary:hover {
+  color: var(--guidance-navy-950);
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 17px 30px
+    rgba(242, 223, 0, 0.24);
 }
 
-.btn-expert:hover {
+.guidance-button-primary svg {
+  transition: transform 0.25s ease;
+}
+
+.guidance-button-primary:hover svg {
+  transform: translateX(4px);
+}
+
+.guidance-button-secondary {
   color: #ffffff;
-  background: #1a1b4b;
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.07);
+
+  border: 1px solid
+    rgba(255, 255, 255, 0.16);
 }
 
-/* Tablet */
-@media (max-width: 1100px) {
-  .guidance-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.guidance-button-secondary:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(255, 255, 255, 0.26);
+
+  transform: translateY(-3px);
 }
 
-/* Mobile */
-@media (max-width: 650px) {
-  .guidance-header {
-    margin-bottom: 35px;
-  }
+/* =========================================
+   LARGE LAPTOP
+========================================= */
 
-  .guidance-header h2 {
-    font-size: 26px;
-  }
-
-  .guidance-grid {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-
+@media (max-width: 1250px) {
   .guidance-card {
-    min-height: 165px;
-    padding: 20px;
-    gap: 12px;
+    grid-template-columns:
+      minmax(0, 1fr)
+      110px;
+
+    min-height: 225px;
+    padding-left: 22px;
+  }
+
+  .guidance-card-image-box {
+    width: 110px;
+    height: 135px;
   }
 
   .guidance-card-content h3 {
     font-size: 18px;
   }
+}
 
-  .guidance-card-content p {
-    font-size: 14px;
-    line-height: 1.5;
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+  .guidance-section {
+    padding: 65px 0;
+  }
+
+  .guidance-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .guidance-card {
+    grid-template-columns:
+      minmax(0, 1fr)
+      125px;
   }
 
   .guidance-card-image-box {
-    width: 95px;
-    height: 115px;
-    flex-basis: 95px;
+    width: 125px;
+    height: 140px;
+  }
+
+  .guidance-cta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .guidance-actions {
+    width: 100%;
+    min-width: 0;
+
+    flex-direction: row;
+  }
+
+  .guidance-button {
+    flex: 1;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+  .guidance-section {
+    padding: 52px 0;
+  }
+
+  .guidance-container {
+    width: min(100% - 22px, 1580px);
+  }
+
+  .guidance-header {
+    margin-bottom: 30px;
+  }
+
+  .guidance-header-badge {
+    padding: 7px 10px;
+    font-size: 9px;
+  }
+
+  .guidance-header h2 {
+    font-size: 30px;
+    line-height: 1.2;
+  }
+
+  .guidance-header p {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .guidance-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+
+  .guidance-card {
+    grid-template-columns:
+      minmax(0, 1fr)
+      105px;
+
+    min-height: 190px;
+    padding: 20px 15px 19px 19px;
+
+    border-radius: 15px;
+  }
+
+  .guidance-card-number {
+    top: 12px;
+    right: 13px;
+
+    font-size: 31px;
+  }
+
+  .guidance-card-check {
+    margin-bottom: 9px;
+    font-size: 8px;
+  }
+
+  .guidance-card-content h3 {
+    margin-bottom: 7px;
+    font-size: 17px;
+  }
+
+  .guidance-card-content p {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .guidance-card-image-box {
+    width: 105px;
+    height: 120px;
+  }
+
+  .guidance-cta {
+    padding: 24px 20px;
+
+    border-radius: 16px;
+  }
+
+  .guidance-cta-content h3 {
+    font-size: 21px;
+  }
+
+  .guidance-cta-content p {
+    font-size: 12px;
   }
 
   .guidance-actions {
     flex-direction: column;
-    align-items: stretch;
-  }
-
-  .guidance-action-link,yv
-  .btn-start,
-  .btn-expert {
-    width: 100%;
   }
 }
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 390px) {
+  .guidance-header h2 {
+    font-size: 27px;
+  }
+
+  .guidance-card {
+    grid-template-columns:
+      minmax(0, 1fr)
+      88px;
+
+    min-height: 175px;
+    padding: 17px 12px 17px 16px;
+  }
+
+  .guidance-card-image-box {
+    width: 88px;
+    height: 105px;
+  }
+
+  .guidance-card-content h3 {
+    font-size: 16px;
+  }
+
+  .guidance-card-content p {
+    font-size: 11px;
+  }
+
+  .guidance-cta {
+    padding: 21px 17px;
+  }
+
+  .guidance-cta-content h3 {
+    font-size: 19px;
+  }
+
+  .guidance-button {
+    min-height: 48px;
+    font-size: 11px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .guidance-section::before {
+    animation: none;
+  }
+
+  .guidance-card,
+  .guidance-card::before,
+  .guidance-card-image,
+  .guidance-image-glow,
+  .guidance-card-bottom-line,
+  .guidance-button,
+  .guidance-button svg {
+    transition: none;
+  }
+}
+
+
+
+
+
+
+
+/* =========================================
+   GUIDANCE CARDS COMPACT SIZE FIX
+========================================= */
+
+.guidance-grid {
+  gap: 18px;
+  margin-bottom: 32px;
+}
+
+.guidance-card {
+  min-height: 185px;
+  padding: 20px 17px 19px 22px;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    100px;
+
+  gap: 12px;
+  border-radius: 16px;
+}
+
+.guidance-card-number {
+  top: 12px;
+  right: 14px;
+
+  font-size: 31px;
+}
+
+.guidance-card-check {
+  margin-bottom: 9px;
+  padding: 5px 8px;
+
+  font-size: 8px;
+}
+
+.guidance-card-check svg {
+  width: 15px;
+  height: 15px;
+}
+
+.guidance-card-content h3 {
+  margin-bottom: 7px;
+
+  font-size: 17px;
+  line-height: 1.3;
+}
+
+.guidance-card-content p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.guidance-card-image-box {
+  width: 100px;
+  height: 112px;
+}
+
+.guidance-image-glow {
+  width: 78px;
+  height: 78px;
+}
+
+.guidance-card-image {
+  padding: 4px;
+}
+
+/* Laptop */
+
+@media (max-width: 1250px) {
+  .guidance-card {
+    min-height: 180px;
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      92px;
+
+    padding: 18px 15px 18px 19px;
+  }
+
+  .guidance-card-image-box {
+    width: 92px;
+    height: 105px;
+  }
+
+  .guidance-card-content h3 {
+    font-size: 16px;
+  }
+}
+
+/* Tablet */
+
+@media (max-width: 1000px) {
+  .guidance-card {
+    min-height: 180px;
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      100px;
+  }
+
+  .guidance-card-image-box {
+    width: 100px;
+    height: 110px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 650px) {
+  .guidance-grid {
+    gap: 13px;
+  }
+
+  .guidance-card {
+    min-height: 155px;
+    padding: 16px 12px 15px 16px;
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      82px;
+
+    gap: 9px;
+    border-radius: 14px;
+  }
+
+  .guidance-card-number {
+    top: 10px;
+    right: 11px;
+
+    font-size: 26px;
+  }
+
+  .guidance-card-check {
+    margin-bottom: 7px;
+    padding: 4px 7px;
+
+    font-size: 7px;
+  }
+
+  .guidance-card-content h3 {
+    margin-bottom: 6px;
+
+    font-size: 15px;
+  }
+
+  .guidance-card-content p {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .guidance-card-image-box {
+    width: 82px;
+    height: 92px;
+  }
+
+  .guidance-image-glow {
+    width: 65px;
+    height: 65px;
+  }
+}
+
+/* Small Mobile */
+
+@media (max-width: 390px) {
+  .guidance-card {
+    min-height: 145px;
+
+    grid-template-columns:
+      minmax(0, 1fr)
+      72px;
+
+    padding: 14px 10px 14px 14px;
+  }
+
+  .guidance-card-image-box {
+    width: 72px;
+    height: 82px;
+  }
+
+  .guidance-card-content h3 {
+    font-size: 14px;
+  }
+
+  .guidance-card-content p {
+    font-size: 10.5px;
+  }
+}
+

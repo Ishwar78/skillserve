@@ -1,0 +1,1490 @@
+/* =========================================================
+   SKILLSERVE ADMIN BLOGS
+   All selectors are uniquely scoped so this file cannot
+   change the public /blog page design.
+========================================================= */
+
+.ssa-admin-blogs-page {
+  --ssa-blog-navy-950: var(--admin-navy-950, #0d0b2b);
+  --ssa-blog-navy-900: var(--admin-navy-900, #12123d);
+  --ssa-blog-navy-800: var(--admin-navy-800, #1a1b4b);
+  --ssa-blog-navy-700: var(--admin-navy-700, #292a63);
+  --ssa-blog-yellow: var(--admin-yellow, #f2df00);
+  --ssa-blog-orange: var(--admin-orange, #f26522);
+  --ssa-blog-text: var(--admin-text, #171833);
+  --ssa-blog-muted: var(--admin-muted, #6d7286);
+  --ssa-blog-border: var(--admin-border, #e5e7f0);
+  --ssa-blog-error: var(--admin-error, #e23b3b);
+  --ssa-blog-success: var(--admin-success, #159447);
+
+  width: 100%;
+  min-width: 0;
+  font-family: "Inter", sans-serif;
+}
+
+.ssa-admin-blogs-page *,
+.ssa-admin-blogs-page *::before,
+.ssa-admin-blogs-page *::after {
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.ssa-admin-blogs-hero {
+  position: relative;
+  min-height: 180px;
+  margin-bottom: 22px;
+  padding: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+
+  overflow: hidden;
+
+  color: #ffffff;
+  background:
+    radial-gradient(
+      circle at 88% 8%,
+      rgba(242, 223, 0, 0.2),
+      transparent 30%
+    ),
+    linear-gradient(
+      130deg,
+      var(--ssa-blog-navy-950),
+      var(--ssa-blog-navy-800) 68%,
+      var(--ssa-blog-navy-700)
+    );
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 23px;
+  box-shadow: 0 22px 50px rgba(18, 18, 61, 0.18);
+}
+
+.ssa-admin-blogs-hero::before,
+.ssa-admin-blogs-hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.ssa-admin-blogs-hero::before {
+  top: -140px;
+  right: 150px;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.ssa-admin-blogs-hero::after {
+  right: -90px;
+  bottom: -125px;
+  width: 270px;
+  height: 270px;
+  background: rgba(242, 223, 0, 0.08);
+}
+
+.ssa-admin-blogs-hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+}
+
+.ssa-admin-blogs-hero__eyebrow {
+  width: fit-content;
+  margin-bottom: 13px;
+  padding: 7px 12px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  color: var(--ssa-blog-yellow);
+  background: rgba(242, 223, 0, 0.1);
+  border: 1px solid rgba(242, 223, 0, 0.23);
+  border-radius: 999px;
+
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+
+.ssa-admin-blogs-hero h1 {
+  margin: 0 0 10px;
+  color: #ffffff;
+  font-size: clamp(29px, 3vw, 38px);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.7px;
+}
+
+.ssa-admin-blogs-hero p {
+  max-width: 670px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.ssa-admin-blogs-total {
+  position: relative;
+  z-index: 2;
+  min-width: 205px;
+  padding: 17px;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  background: rgba(255, 255, 255, 0.085);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+}
+
+.ssa-admin-blogs-total__icon {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--ssa-blog-navy-950);
+  background: var(--ssa-blog-yellow);
+  border-radius: 14px;
+}
+
+.ssa-admin-blogs-total span {
+  display: block;
+  margin-bottom: 4px;
+  color: rgba(255, 255, 255, 0.56);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.ssa-admin-blogs-total strong {
+  display: block;
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.ssa-admin-blogs-message {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 13px 14px 13px 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.ssa-admin-blogs-message--success {
+  color: #10723b;
+  background: #eaf9f0;
+  border: 1px solid #b5e8c8;
+}
+
+.ssa-admin-blogs-message--error {
+  color: #b62525;
+  background: #fff0f0;
+  border: 1px solid #ffc5c5;
+}
+
+.ssa-admin-blogs-message__content {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.ssa-admin-blogs-message__content svg {
+  flex-shrink: 0;
+}
+
+.ssa-admin-blogs-message button {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  flex-shrink: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: currentColor;
+  background: transparent;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.ssa-admin-blogs-message button:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* =========================================================
+   WORKSPACE AND CARDS
+========================================================= */
+
+.ssa-admin-blogs-workspace {
+  display: grid;
+  grid-template-columns:
+    minmax(610px, 1.35fr)
+    minmax(360px, 0.65fr);
+  align-items: start;
+  gap: 24px;
+}
+
+.ssa-admin-blogs-card {
+  min-width: 0;
+  background: #ffffff;
+  border: 1px solid var(--ssa-blog-border);
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(19, 19, 64, 0.08);
+}
+
+.ssa-admin-blogs-editor {
+  padding: 27px;
+  overflow: hidden;
+  scroll-margin-top: 20px;
+}
+
+.ssa-admin-blogs-library {
+  position: sticky;
+  top: 24px;
+  padding: 24px;
+  overflow: hidden;
+}
+
+/* =========================================================
+   CARD HEADERS
+========================================================= */
+
+.ssa-admin-blogs-card-header,
+.ssa-admin-blogs-library-header {
+  margin-bottom: 24px;
+  padding-bottom: 19px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+
+  border-bottom: 1px solid var(--ssa-blog-border);
+}
+
+.ssa-admin-blogs-card-heading {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ssa-admin-blogs-card-heading__icon {
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--ssa-blog-navy-950);
+  background: linear-gradient(
+    135deg,
+    var(--ssa-blog-yellow),
+    #fff66d
+  );
+  border-radius: 14px;
+  box-shadow: 0 10px 22px rgba(242, 223, 0, 0.2);
+}
+
+.ssa-admin-blogs-card-heading span,
+.ssa-admin-blogs-library-header span {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--ssa-blog-orange);
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+
+.ssa-admin-blogs-card-heading h2,
+.ssa-admin-blogs-library-header h2 {
+  margin: 0;
+  color: var(--ssa-blog-navy-800);
+  font-size: 21px;
+  font-weight: 900;
+  line-height: 1.3;
+}
+
+.ssa-admin-blogs-editing-pill {
+  padding: 7px 11px;
+  flex-shrink: 0;
+
+  color: #3152c7;
+  background: #edf1ff;
+  border: 1px solid #d2dcff;
+  border-radius: 999px;
+
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.ssa-admin-blogs-library-header strong {
+  min-width: 38px;
+  height: 34px;
+  padding: 0 11px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--ssa-blog-navy-950);
+  background: var(--ssa-blog-yellow);
+  border-radius: 999px;
+
+  font-size: 13px;
+  font-weight: 900;
+}
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.ssa-admin-blogs-form {
+  display: grid;
+  gap: 20px;
+}
+
+.ssa-admin-blogs-form-section {
+  padding: 21px;
+  background: linear-gradient(135deg, #ffffff, #fbfbfe);
+  border: 1px solid #e8e9f1;
+  border-radius: 16px;
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.ssa-admin-blogs-form-section:focus-within {
+  border-color: rgba(242, 223, 0, 0.75);
+  box-shadow: 0 12px 30px rgba(18, 18, 61, 0.07);
+}
+
+.ssa-admin-blogs-form-section--seo {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(242, 223, 0, 0.055),
+      #ffffff
+    );
+}
+
+.ssa-admin-blogs-section-heading {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ssa-admin-blogs-section-heading__icon {
+  width: 43px;
+  height: 43px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--ssa-blog-navy-800);
+  background: rgba(242, 223, 0, 0.18);
+  border: 1px solid rgba(242, 223, 0, 0.38);
+  border-radius: 11px;
+}
+
+.ssa-admin-blogs-section-heading span {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--ssa-blog-orange);
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.65px;
+  text-transform: uppercase;
+}
+
+.ssa-admin-blogs-section-heading h3 {
+  margin: 0;
+  color: var(--ssa-blog-navy-800);
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.ssa-admin-blogs-form-grid {
+  margin-top: 17px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 17px;
+}
+
+.ssa-admin-blogs-field {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ssa-admin-blogs-field + .ssa-admin-blogs-field {
+  margin-top: 17px;
+}
+
+.ssa-admin-blogs-form-grid
+  .ssa-admin-blogs-field
+  + .ssa-admin-blogs-field {
+  margin-top: 0;
+}
+
+.ssa-admin-blogs-field label {
+  color: var(--ssa-blog-text);
+  font-size: 12px;
+  font-weight: 780;
+  line-height: 1.4;
+}
+
+.ssa-admin-blogs-field label > span {
+  margin-left: 2px;
+  color: var(--ssa-blog-error);
+}
+
+.ssa-admin-blogs-field input,
+.ssa-admin-blogs-field textarea {
+  width: 100%;
+  min-width: 0;
+
+  color: var(--ssa-blog-text);
+  background: #ffffff;
+  border: 1.5px solid #dfe2eb;
+  border-radius: 10px;
+  outline: none;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+
+  transition:
+    background 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.ssa-admin-blogs-field input {
+  height: 49px;
+  padding: 0 14px;
+}
+
+.ssa-admin-blogs-field textarea {
+  min-height: 112px;
+  padding: 13px 14px 30px;
+  line-height: 1.65;
+  resize: vertical;
+}
+
+.ssa-admin-blogs-field input::placeholder,
+.ssa-admin-blogs-field textarea::placeholder {
+  color: #a1a5b4;
+}
+
+.ssa-admin-blogs-field input:hover,
+.ssa-admin-blogs-field textarea:hover {
+  border-color: #bdc1cd;
+}
+
+.ssa-admin-blogs-field input:focus,
+.ssa-admin-blogs-field textarea:focus {
+  background: #fffef3;
+  border-color: var(--ssa-blog-yellow);
+  box-shadow: 0 0 0 4px rgba(242, 223, 0, 0.13);
+}
+
+.ssa-admin-blogs-field small {
+  color: var(--ssa-blog-muted);
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+/* FAQ Editor Styles */
+.ssa-admin-blogs-add-faq-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--ssa-blog-navy-800, #1a1b4b);
+  color: #ffffff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ssa-admin-blogs-add-faq-btn:hover {
+  background: var(--ssa-blog-orange, #f26522);
+}
+
+.ssa-admin-blogs-faq-empty {
+  padding: 24px;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  text-align: center;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.ssa-admin-blogs-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ssa-admin-blogs-faq-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px;
+  position: relative;
+}
+
+.ssa-admin-blogs-faq-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.faq-badge {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1e293b;
+  background: #e2e8f0;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.ssa-admin-blogs-faq-delete-btn {
+  background: rgba(220, 38, 38, 0.1);
+  color: #dc2626;
+  border: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ssa-admin-blogs-faq-delete-btn:hover {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.ssa-admin-blogs-input-icon {
+  position: relative;
+}
+
+.ssa-admin-blogs-input-icon > svg {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  z-index: 2;
+
+  color: var(--ssa-blog-orange);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.ssa-admin-blogs-input-icon input {
+  padding-left: 42px;
+}
+
+.ssa-admin-blogs-character-count {
+  position: absolute;
+  right: 10px;
+  bottom: 9px;
+  padding: 3px 7px;
+
+  color: var(--ssa-blog-muted);
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 5px;
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   IMAGE UPLOAD AND PREVIEW
+========================================================= */
+
+.ssa-admin-blogs-upload {
+  min-height: 78px;
+  padding: 13px;
+
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+
+  overflow: hidden;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(242, 223, 0, 0.08),
+      rgba(26, 27, 75, 0.025)
+    );
+
+  border: 1.5px dashed #c6c9d4;
+  border-radius: 11px;
+  cursor: pointer;
+
+  transition:
+    background 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.ssa-admin-blogs-upload:hover {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(242, 223, 0, 0.15),
+      rgba(26, 27, 75, 0.04)
+    );
+
+  border-color: var(--ssa-blog-yellow);
+  box-shadow: 0 9px 23px rgba(18, 18, 61, 0.06);
+}
+
+.ssa-admin-blogs-upload input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ssa-admin-blogs-upload__icon {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--ssa-blog-navy-950);
+  background: var(--ssa-blog-yellow);
+  border-radius: 12px;
+}
+
+.ssa-admin-blogs-upload__text {
+  min-width: 0;
+}
+
+.ssa-admin-blogs-upload__text strong {
+  max-width: 100%;
+  display: block;
+  overflow: hidden;
+
+  color: var(--ssa-blog-navy-800);
+  font-size: 11px;
+  font-weight: 850;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ssa-admin-blogs-upload__text span {
+  display: block;
+  margin-top: 4px;
+
+  color: var(--ssa-blog-muted);
+  font-size: 9px;
+  font-weight: 550;
+  line-height: 1.4;
+}
+
+.ssa-admin-blogs-image-preview {
+  position: relative;
+  width: 100%;
+  height: 270px;
+  margin-top: 17px;
+
+  overflow: hidden;
+  background: #f7f8fc;
+  border: 1px solid var(--ssa-blog-border);
+  border-radius: 14px;
+}
+
+.ssa-admin-blogs-image-preview img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+}
+
+.ssa-admin-blogs-image-preview__bar {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  min-height: 46px;
+  padding: 9px 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  color: #ffffff;
+  background: rgba(13, 11, 43, 0.84);
+  backdrop-filter: blur(8px);
+
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.ssa-admin-blogs-image-preview__bar button {
+  min-height: 29px;
+  padding: 5px 9px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  color: #ffffff;
+  background: rgba(226, 59, 59, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 7px;
+
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* =========================================================
+   QUILL EDITOR
+========================================================= */
+
+.ssa-admin-blog-quill {
+  overflow: hidden;
+  background: #ffffff;
+  border: 1.5px solid #dfe2eb;
+  border-radius: 12px;
+
+  transition:
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.ssa-admin-blog-quill:focus-within {
+  border-color: var(--ssa-blog-yellow);
+  box-shadow: 0 0 0 4px rgba(242, 223, 0, 0.13);
+}
+
+.ssa-admin-blogs-page
+  .ssa-admin-blog-quill
+  .ql-toolbar.ql-snow {
+  padding: 11px;
+  background: linear-gradient(135deg, #f8f8fc, #ffffff);
+  border: none;
+  border-bottom: 1px solid var(--ssa-blog-border);
+}
+
+.ssa-admin-blogs-page
+  .ssa-admin-blog-quill
+  .ql-container.ql-snow {
+  min-height: 360px;
+
+  color: var(--ssa-blog-text);
+  background: #ffffff;
+  border: none;
+
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+}
+
+.ssa-admin-blogs-page
+  .ssa-admin-blog-quill
+  .ql-editor {
+  min-height: 360px;
+  padding: 20px;
+
+  line-height: 1.75;
+  overflow-y: auto;
+}
+
+.ssa-admin-blogs-page
+  .ssa-admin-blog-quill
+  .ql-editor.ql-blank::before {
+  left: 20px;
+  color: #9da1af;
+  font-style: normal;
+}
+
+.ssa-admin-blogs-page
+  .ssa-admin-blog-quill
+  .ql-editor img {
+  max-width: 100%;
+  height: auto;
+}
+
+.ssa-admin-blogs-page
+  .ssa-admin-blog-quill
+  .ql-toolbar button:hover,
+.ssa-admin-blogs-page
+  .ssa-admin-blog-quill
+  .ql-toolbar button.ql-active {
+  color: var(--ssa-blog-orange);
+}
+
+.ssa-admin-blogs-page
+  .ssa-admin-blog-quill
+  .ql-toolbar button:hover .ql-stroke,
+.ssa-admin-blogs-page
+  .ssa-admin-blog-quill
+  .ql-toolbar button.ql-active .ql-stroke {
+  stroke: var(--ssa-blog-orange);
+}
+
+.ssa-admin-blogs-page
+  .ssa-admin-blog-quill
+  .ql-toolbar button:hover .ql-fill,
+.ssa-admin-blogs-page
+  .ssa-admin-blog-quill
+  .ql-toolbar button.ql-active .ql-fill {
+  fill: var(--ssa-blog-orange);
+}
+
+/* =========================================================
+   FORM ACTIONS
+========================================================= */
+
+.ssa-admin-blogs-form-actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+
+  margin: 0 -27px -27px;
+  padding: 17px 27px;
+
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  background: rgba(255, 255, 255, 0.95);
+  border-top: 1px solid var(--ssa-blog-border);
+  backdrop-filter: blur(12px);
+}
+
+.ssa-admin-blogs-primary-button,
+.ssa-admin-blogs-secondary-button {
+  min-height: 48px;
+  padding: 11px 21px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 850;
+  cursor: pointer;
+
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    background 0.22s ease,
+    color 0.22s ease;
+}
+
+.ssa-admin-blogs-primary-button {
+  flex: 1;
+  color: #ffffff;
+  background:
+    linear-gradient(
+      135deg,
+      var(--ssa-blog-navy-950),
+      var(--ssa-blog-navy-700) 68%,
+      #c9b900
+    );
+  border: none;
+}
+
+.ssa-admin-blogs-primary-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(26, 27, 75, 0.2);
+}
+
+.ssa-admin-blogs-secondary-button {
+  color: var(--ssa-blog-navy-800);
+  background: #f1f2f7;
+  border: 1px solid #dfe1ea;
+}
+
+.ssa-admin-blogs-secondary-button:hover:not(:disabled) {
+  color: #ffffff;
+  background: var(--ssa-blog-navy-800);
+  transform: translateY(-2px);
+}
+
+.ssa-admin-blogs-primary-button:disabled,
+.ssa-admin-blogs-secondary-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
+  transform: none;
+}
+
+/* =========================================================
+   LIBRARY SEARCH
+========================================================= */
+
+.ssa-admin-blogs-search {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.ssa-admin-blogs-search > svg {
+  position: absolute;
+  top: 50%;
+  left: 13px;
+  z-index: 2;
+
+  color: var(--ssa-blog-orange);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.ssa-admin-blogs-search input {
+  width: 100%;
+  height: 44px;
+  padding: 0 13px 0 40px;
+
+  color: var(--ssa-blog-text);
+  background: #fbfbfd;
+  border: 1px solid var(--ssa-blog-border);
+  border-radius: 10px;
+  outline: none;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 550;
+}
+
+.ssa-admin-blogs-search input:focus {
+  background: #ffffff;
+  border-color: var(--ssa-blog-yellow);
+  box-shadow: 0 0 0 4px rgba(242, 223, 0, 0.12);
+}
+
+/* =========================================================
+   BLOG LIST
+========================================================= */
+
+.ssa-admin-blogs-list {
+  max-height: 760px;
+  padding-right: 5px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ssa-blog-yellow) #ededf3;
+}
+
+.ssa-admin-blogs-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.ssa-admin-blogs-list::-webkit-scrollbar-track {
+  background: #ededf3;
+  border-radius: 20px;
+}
+
+.ssa-admin-blogs-list::-webkit-scrollbar-thumb {
+  background: var(--ssa-blog-yellow);
+  border-radius: 20px;
+}
+
+.ssa-admin-blogs-list-item {
+  position: relative;
+  min-height: 115px;
+  padding: 13px;
+
+  display: grid;
+  grid-template-columns: 98px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 13px;
+
+  background: linear-gradient(135deg, #ffffff, #fbfbfd);
+  border: 1px solid #e9eaf1;
+  border-radius: 14px;
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.ssa-admin-blogs-list-item:hover {
+  background: #ffffff;
+  border-color: rgba(242, 223, 0, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(18, 18, 61, 0.08);
+}
+
+.ssa-admin-blogs-list-item--active {
+  background: rgba(242, 223, 0, 0.075);
+  border-color: var(--ssa-blog-yellow);
+  box-shadow: 0 0 0 3px rgba(242, 223, 0, 0.1);
+}
+
+.ssa-admin-blogs-list-item__image {
+  width: 98px;
+  height: 82px;
+  overflow: hidden;
+
+  background: #f1f2f6;
+  border: 1px solid #eaebf1;
+  border-radius: 11px;
+}
+
+.ssa-admin-blogs-list-item__image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.ssa-admin-blogs-list-item__placeholder {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--ssa-blog-navy-800);
+  background: rgba(242, 223, 0, 0.16);
+}
+
+.ssa-admin-blogs-list-item__content {
+  min-width: 0;
+}
+
+.ssa-admin-blogs-category {
+  width: fit-content;
+  max-width: 100%;
+  margin-bottom: 7px;
+  padding: 4px 8px;
+
+  display: block;
+  overflow: hidden;
+
+  color: #8f6100;
+  background: rgba(242, 223, 0, 0.17);
+  border: 1px solid rgba(242, 223, 0, 0.3);
+  border-radius: 999px;
+
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ssa-admin-blogs-list-item__content h3 {
+  margin: 0 0 8px;
+
+  display: -webkit-box;
+  overflow: hidden;
+
+  color: var(--ssa-blog-navy-800);
+  font-size: 13px;
+  font-weight: 850;
+  line-height: 1.45;
+
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.ssa-admin-blogs-list-item__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px 11px;
+}
+
+.ssa-admin-blogs-list-item__meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  color: var(--ssa-blog-muted);
+  font-size: 9px;
+  font-weight: 650;
+}
+
+.ssa-admin-blogs-list-item__meta svg {
+  flex-shrink: 0;
+  color: var(--ssa-blog-orange);
+}
+
+.ssa-admin-blogs-list-item__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.ssa-admin-blogs-action {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #ffffff;
+  border: 1px solid var(--ssa-blog-border);
+  border-radius: 9px;
+  cursor: pointer;
+
+  transition:
+    color 0.22s ease,
+    background 0.22s ease,
+    border-color 0.22s ease,
+    transform 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.ssa-admin-blogs-action--edit {
+  color: #3d59cc;
+}
+
+.ssa-admin-blogs-action--edit:hover:not(:disabled) {
+  color: #ffffff;
+  background: #3d59cc;
+  border-color: #3d59cc;
+  transform: translateY(-2px);
+  box-shadow: 0 7px 15px rgba(61, 89, 204, 0.2);
+}
+
+.ssa-admin-blogs-action--delete {
+  color: var(--ssa-blog-error);
+}
+
+.ssa-admin-blogs-action--delete:hover:not(:disabled) {
+  color: #ffffff;
+  background: var(--ssa-blog-error);
+  border-color: var(--ssa-blog-error);
+  transform: translateY(-2px);
+  box-shadow: 0 7px 15px rgba(226, 59, 59, 0.2);
+}
+
+.ssa-admin-blogs-action:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+/* =========================================================
+   LOADING AND EMPTY STATE
+========================================================= */
+
+.ssa-admin-blogs-state {
+  min-height: 330px;
+  padding: 35px 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--ssa-blog-muted);
+  text-align: center;
+}
+
+.ssa-admin-blogs-state > svg {
+  margin-bottom: 15px;
+  color: var(--ssa-blog-navy-800);
+}
+
+.ssa-admin-blogs-state__icon {
+  width: 74px;
+  height: 74px;
+  margin-bottom: 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--ssa-blog-navy-800);
+  background: rgba(242, 223, 0, 0.17);
+  border: 1px solid rgba(242, 223, 0, 0.3);
+  border-radius: 20px;
+}
+
+.ssa-admin-blogs-state h3 {
+  margin: 0 0 7px;
+  color: var(--ssa-blog-navy-800);
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.ssa-admin-blogs-state p {
+  max-width: 250px;
+  margin: 0;
+  color: var(--ssa-blog-muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.ssa-admin-blogs-spin {
+  animation: ssa-admin-blogs-spin 0.85s linear infinite;
+}
+
+@keyframes ssa-admin-blogs-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1260px) {
+  .ssa-admin-blogs-workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .ssa-admin-blogs-library {
+    position: static;
+  }
+
+  .ssa-admin-blogs-list {
+    max-height: 650px;
+  }
+}
+
+@media (max-width: 760px) {
+  .ssa-admin-blogs-hero {
+    min-height: auto;
+    padding: 26px 22px;
+
+    align-items: flex-start;
+    flex-direction: column;
+
+    border-radius: 19px;
+  }
+
+  .ssa-admin-blogs-total {
+    width: 100%;
+  }
+
+  .ssa-admin-blogs-editor,
+  .ssa-admin-blogs-library {
+    padding: 19px;
+  }
+
+  .ssa-admin-blogs-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ssa-admin-blogs-form-grid
+    .ssa-admin-blogs-field
+    + .ssa-admin-blogs-field {
+    margin-top: 0;
+  }
+
+  .ssa-admin-blogs-form-section {
+    padding: 17px;
+  }
+
+  .ssa-admin-blogs-form-actions {
+    margin: 0 -19px -19px;
+    padding: 14px 19px;
+  }
+
+  .ssa-admin-blogs-page
+    .ssa-admin-blog-quill
+    .ql-container.ql-snow,
+  .ssa-admin-blogs-page
+    .ssa-admin-blog-quill
+    .ql-editor {
+    min-height: 300px;
+  }
+
+  .ssa-admin-blogs-list-item {
+    grid-template-columns:
+      85px minmax(0, 1fr) auto;
+  }
+
+  .ssa-admin-blogs-list-item__image {
+    width: 85px;
+    height: 76px;
+  }
+}
+
+@media (max-width: 520px) {
+  .ssa-admin-blogs-hero {
+    padding: 23px 18px;
+  }
+
+  .ssa-admin-blogs-card-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .ssa-admin-blogs-editing-pill {
+    align-self: flex-start;
+  }
+
+  .ssa-admin-blogs-card-heading__icon {
+    width: 46px;
+    height: 46px;
+  }
+
+  .ssa-admin-blogs-editor,
+  .ssa-admin-blogs-library {
+    padding: 15px;
+  }
+
+  .ssa-admin-blogs-form-section {
+    padding: 14px;
+  }
+
+  .ssa-admin-blogs-upload {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .ssa-admin-blogs-upload__text {
+    width: 100%;
+  }
+
+  .ssa-admin-blogs-image-preview {
+    height: 210px;
+  }
+
+  .ssa-admin-blogs-image-preview__bar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .ssa-admin-blogs-form-actions {
+    margin: 0 -15px -15px;
+    padding: 13px 15px;
+
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .ssa-admin-blogs-primary-button,
+  .ssa-admin-blogs-secondary-button {
+    width: 100%;
+  }
+
+  .ssa-admin-blogs-list-item {
+    grid-template-columns: 1fr;
+  }
+
+  .ssa-admin-blogs-list-item__image {
+    width: 100%;
+    height: 170px;
+  }
+
+  .ssa-admin-blogs-list-item__actions {
+    padding-top: 10px;
+
+    flex-direction: row;
+    justify-content: flex-end;
+
+    border-top: 1px solid var(--ssa-blog-border);
+  }
+
+  .ssa-admin-blogs-action {
+    width: 39px;
+    height: 39px;
+  }
+
+  .ssa-admin-blogs-page
+    .ssa-admin-blog-quill
+    .ql-toolbar.ql-snow {
+    padding: 7px;
+  }
+
+  .ssa-admin-blogs-page
+    .ssa-admin-blog-quill
+    .ql-container.ql-snow,
+  .ssa-admin-blogs-page
+    .ssa-admin-blog-quill
+    .ql-editor {
+    min-height: 260px;
+  }
+}
+
+@media (max-width: 380px) {
+  .ssa-admin-blogs-editor,
+  .ssa-admin-blogs-library {
+    padding: 13px;
+  }
+
+  .ssa-admin-blogs-form-section {
+    padding: 13px;
+  }
+
+  .ssa-admin-blogs-form-actions {
+    margin: 0 -13px -13px;
+    padding: 12px 13px;
+  }
+}

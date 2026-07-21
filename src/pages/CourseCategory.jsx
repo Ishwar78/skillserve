@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Clock, MapPin, Star, ExternalLink } from 'lucide-react';
 import { coursesData } from '../data/coursesData';
+import api from '../utils/api';
 import './CourseCategory.css';
 
 const renderStars = (rating) => {
@@ -18,9 +19,37 @@ const renderStars = (rating) => {
 
 const CourseCategory = () => {
   const { categoryId } = useParams();
-  const courses = coursesData[categoryId];
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  if (!courses) {
+  useEffect(() => {
+    const fetchCategoryCourses = async () => {
+      try {
+        const { data } = await api.get(`/courses/category/${categoryId}`);
+        if (data && data.length > 0) {
+          setCourses(data);
+        } else {
+          setCourses(coursesData[categoryId] || []);
+        }
+      } catch (error) {
+        console.error('Error fetching category courses:', error);
+        setCourses(coursesData[categoryId] || []);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCategoryCourses();
+  }, [categoryId]);
+
+  if (loading) {
+    return (
+      <div className="course-cat-page container" style={{ padding: '100px 0', textAlign: 'center' }}>
+        <h2>Loading Courses...</h2>
+      </div>
+    );
+  }
+
+  if (!courses || courses.length === 0) {
     return (
       <div className="course-cat-page container" style={{ padding: '100px 0', textAlign: 'center' }}>
         <h2>Category Not Found</h2>
@@ -38,8 +67,10 @@ const CourseCategory = () => {
         </div>
         
         <div className="course-cat-grid">
-          {courses.map((course) => (
-            <Link to={`/course/${course.id}`} key={course.id} className="course-cat-card">
+          {courses.map((course) => {
+            const courseLink = `/course/${course.slug || course._id || course.id}`;
+            return (
+              <Link to={courseLink} key={course._id || course.id} className="course-cat-card">
               <div className="course-cat-img-wrapper">
                 <img src={course.img} alt={course.title} className="course-cat-img" />
               </div>
@@ -70,7 +101,8 @@ const CourseCategory = () => {
                 </div>
               </div>
             </Link>
-          ))}
+          );
+        })}
         </div>
       </div>
     </div>
