@@ -123,7 +123,7 @@ const createCourse = async (req, res) => {
 
     let img = '';
     if (req.file) {
-      img = `http://localhost:5000/uploads/${req.file.filename}`;
+      img = `https://skillserve-nm1n.onrender.com/uploads/${req.file.filename}`;
     } else {
       return res.status(400).json({ message: 'Course cover image is required' });
     }
@@ -207,7 +207,7 @@ const updateCourse = async (req, res) => {
       }
 
       if (req.file) {
-        course.img = `http://localhost:5000/uploads/${req.file.filename}`;
+        course.img = `https://skillserve-nm1n.onrender.com/uploads/${req.file.filename}`;
       }
 
       const updatedCourse = await course.save();

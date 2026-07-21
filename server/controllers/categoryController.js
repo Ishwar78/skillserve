@@ -55,7 +55,7 @@ const createCategory = async (req, res) => {
     const { title, courses, link } = req.body;
     let image = '';
     if (req.file) {
-      image = `http://localhost:5000/uploads/${req.file.filename}`;
+      image = `https://skillserve-nm1n.onrender.com/uploads/${req.file.filename}`;
     } else {
       return res.status(400).json({ message: 'Category image is required' });
     }
@@ -89,7 +89,7 @@ const updateCategory = async (req, res) => {
       category.link = link || category.link;
 
       if (req.file) {
-        category.image = `http://localhost:5000/uploads/${req.file.filename}`;
+        category.image = `https://skillserve-nm1n.onrender.com/uploads/${req.file.filename}`;
       }
 
       const updatedCategory = await category.save();

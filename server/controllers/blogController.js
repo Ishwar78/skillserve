@@ -394,7 +394,7 @@ const createBlog = async (req, res) => {
     let image = '/course_cnc.png'; // Default if none uploaded
 
     if (req.file) {
-      image = `http://localhost:5000/uploads/${req.file.filename}`;
+      image = `https://skillserve-nm1n.onrender.com/uploads/${req.file.filename}`;
     }
 
     let parsedFaqs = [];
@@ -455,7 +455,7 @@ const updateBlog = async (req, res) => {
       }
 
       if (req.file) {
-        blog.image = `http://localhost:5000/uploads/${req.file.filename}`;
+        blog.image = `https://skillserve-nm1n.onrender.com/uploads/${req.file.filename}`;
       }
 
       const updatedBlog = await blog.save();

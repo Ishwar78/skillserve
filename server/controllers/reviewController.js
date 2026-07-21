@@ -55,7 +55,7 @@ const createReview = async (req, res) => {
     const { name, company, quote } = req.body;
     let img = '';
     if (req.file) {
-      img = `http://localhost:5000/uploads/${req.file.filename}`;
+      img = `https://skillserve-nm1n.onrender.com/uploads/${req.file.filename}`;
     }
 
     const review = new Review({
