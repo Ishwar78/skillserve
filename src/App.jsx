@@ -30,6 +30,7 @@ import AdminCategories from "./pages/admin/AdminCategories";
 import AdminContact from "./pages/admin/AdminContact";
 import AdminCourses from "./pages/admin/AdminCourses";
 import AdminInquiries from "./pages/admin/AdminInquiries";
+import AdminChatbot from "./pages/admin/AdminChatbot";
 import AdminBlogs from "./pages/admin/AdminBlogs";
 import AdminAbout from "./pages/admin/AdminAbout";
 import AdminHero from "./pages/admin/AdminHero";
@@ -143,6 +144,11 @@ const AppContent = () => {
         <Route
           path="/admin/inquiries"
           element={<AdminInquiries />}
+        />
+
+        <Route
+          path="/admin/chatbot"
+          element={<AdminChatbot />}
         />
 
         <Route

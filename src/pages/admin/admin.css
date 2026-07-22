@@ -5537,3 +5537,359 @@
 
 
 
+/* =====================================================
+   INQUIRY HEADER ACTIONS
+===================================================== */
+
+.inquiries-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.inquiries-refresh-btn {
+  min-height: 44px;
+  padding: 0 15px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 750;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.inquiries-refresh-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.inquiries-refresh-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+/* =====================================================
+   SOURCE FILTER TABS
+===================================================== */
+
+.inquiries-source-tabs {
+  width: 100%;
+  margin-top: 18px;
+  padding-top: 17px;
+  border-top: 1px solid #edf0f5;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.inquiries-source-tabs button {
+  min-height: 42px;
+  padding: 0 13px;
+  border: 1px solid #e2e7ef;
+  border-radius: 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: #667085;
+  background: #ffffff;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 750;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.inquiries-source-tabs button:hover {
+  border-color: #cbd5e1;
+  background: #f8fafc;
+  transform: translateY(-1px);
+}
+
+.inquiries-source-tabs button > span {
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 999px;
+  display: inline-grid;
+  place-items: center;
+  color: #596274;
+  background: #eef1f5;
+  font-size: 10px;
+  font-weight: 850;
+}
+
+.inquiries-source-tabs button.active {
+  color: #ffffff;
+  border-color: #344054;
+  background: #344054;
+  box-shadow: 0 8px 18px rgba(52, 64, 84, 0.18);
+}
+
+.inquiries-source-tabs button.active > span {
+  color: #344054;
+  background: #ffffff;
+}
+
+/* Popup active */
+
+.inquiries-source-tabs button.popup-active {
+  border-color: #d97706;
+  background: linear-gradient(
+    135deg,
+    #f59e0b,
+    #d97706
+  );
+  box-shadow: 0 8px 18px rgba(217, 119, 6, 0.2);
+}
+
+.inquiries-source-tabs button.popup-active > span {
+  color: #b45309;
+}
+
+/* Contact active */
+
+.inquiries-source-tabs button.contact-active {
+  border-color: #059669;
+  background: linear-gradient(
+    135deg,
+    #10b981,
+    #059669
+  );
+  box-shadow: 0 8px 18px rgba(5, 150, 105, 0.2);
+}
+
+.inquiries-source-tabs button.contact-active > span {
+  color: #047857;
+}
+
+/* Chatbot active */
+
+.inquiries-source-tabs button.chatbot-active {
+  border-color: #0753be;
+  background: linear-gradient(
+    135deg,
+    #1769d2,
+    #0753be
+  );
+  box-shadow: 0 8px 18px rgba(23, 105, 210, 0.23);
+}
+
+.inquiries-source-tabs button.chatbot-active > span {
+  color: #0753be;
+}
+
+/* Category/About form active */
+
+.inquiries-source-tabs button.section-form-active {
+  border-color: #7c3aed;
+  background: linear-gradient(
+    135deg,
+    #8b5cf6,
+    #6d28d9
+  );
+  box-shadow: 0 8px 18px rgba(124, 58, 237, 0.23);
+}
+
+.inquiries-source-tabs button.section-form-active > span {
+  color: #6d28d9;
+}
+
+/* =====================================================
+   SOURCE BADGES
+===================================================== */
+
+.source-badge {
+  width: max-content;
+  max-width: 100%;
+  min-height: 30px;
+  padding: 5px 10px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 850;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.source-badge svg {
+  flex: 0 0 auto;
+}
+
+.badge-popup {
+  color: #9a5700;
+  border-color: #f4d69e;
+  background: #fff5df;
+}
+
+.badge-contact {
+  color: #087451;
+  border-color: #b8e8d6;
+  background: #eaf9f3;
+}
+
+.badge-chatbot {
+  color: #0753be;
+  border-color: #b7d4fb;
+  background: #eaf3ff;
+}
+
+.badge-section-form {
+  color: #6d28d9;
+  border-color: #d9c6ff;
+  background: #f3edff;
+}
+
+.badge-unknown {
+  color: #667085;
+  border-color: #d8dde6;
+  background: #f2f4f7;
+}
+
+/* =====================================================
+   MESSAGE AND SOURCE CELLS
+===================================================== */
+
+.inq-message-cell {
+  width: 100%;
+  max-width: 330px;
+}
+
+.inq-message-cell p {
+  margin: 0;
+  display: -webkit-box;
+  overflow: hidden;
+  color: #475467;
+  font-size: 12px;
+  line-height: 1.55;
+  word-break: break-word;
+  white-space: pre-wrap;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.inq-source-cell {
+  min-width: 155px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.inq-date {
+  color: #8b93a3;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+/* =====================================================
+   ERROR AND LOADING
+===================================================== */
+
+.inquiries-error-message {
+  margin-bottom: 17px;
+  padding: 12px 15px;
+  border: 1px solid #fecaca;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  color: #b4232a;
+  background: #fff1f2;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.inquiries-error-message button {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 7px;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.inquiry-delete-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.inquiries-spin {
+  animation: inquiriesSpin 0.75s linear infinite;
+}
+
+@keyframes inquiriesSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 900px) {
+  .inquiries-header-actions {
+    width: 100%;
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .inquiries-refresh-btn {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .inquiries-source-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 7px;
+    scrollbar-width: thin;
+  }
+
+  .inquiries-source-tabs button {
+    flex: 0 0 auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .inquiries-source-tabs {
+    gap: 7px;
+  }
+
+  .inquiries-source-tabs button {
+    min-height: 39px;
+    padding: 0 10px;
+    font-size: 10.5px;
+  }
+
+  .inq-message-cell {
+    max-width: 100%;
+  }
+}

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
-import { LayoutDashboard, Users, BookOpen, Settings, Tags, Star, LogOut, Phone, MessageSquare, FileText, Info, Monitor } from 'lucide-react';
+import { LayoutDashboard, Users, BookOpen, Settings, Tags, Star, LogOut, Phone, MessageSquare, FileText, Info, Monitor, Bot } from 'lucide-react';
 import '../../pages/admin/admin.css';
 
 const AdminLayout = ({ children }) => {
@@ -59,6 +59,9 @@ const AdminLayout = ({ children }) => {
             </li>
             <li className={isActive('/admin/inquiries') ? 'active' : ''} onClick={() => navigate('/admin/inquiries')}>
               <MessageSquare size={20} /> <span>Inquiries</span>
+            </li>
+            <li className={isActive('/admin/chatbot') ? 'active' : ''} onClick={() => navigate('/admin/chatbot')}>
+              <Bot size={20} /> <span>Chatbot</span>
             </li>
             <li className={isActive('/admin/blogs') ? 'active' : ''} onClick={() => navigate('/admin/blogs')}>
               <FileText size={20} /> <span>Blogs</span>
